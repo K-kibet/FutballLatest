@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:layout_margin="2dp"
+    app:cardCornerRadius="5dp"
+    app:cardPreventCornerOverlap="true"
+    android:focusable="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="3dp"
+        android:background="?attr/selectableItemBackground">
+
+        <!-- Text -->
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="English (United State)"
+            android:layout_weight="1"
+            android:textSize="17sp"
+            android:layout_marginStart="8dp"/>
+
+        <!-- Custom Radio Button -->
+        <RadioButton
+            android:id="@+id/radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:buttonTint="?attr/iconColor" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+

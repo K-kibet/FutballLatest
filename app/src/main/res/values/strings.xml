@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">Live Football Tv</string>
+    <string name="App_Id">ca-app-pub-9576945242972545~9773412619</string>
+    <!--Ad Unit -->
+    <string name="Interstitial_Ad_Unit">ca-app-pub-9576945242972545/3835524370</string>
+    <string name="Rewarded_Interstitial_Ad_Unit">ca-app-pub-9576945242972545/7596803502</string>
+    <string name="Banner_Ad_Unit">ca-app-pub-9576945242972545/9170777380</string>
+    <string name="no_matches_found">No Matches Found! Try Again Later</string>
+    <!-- for individual competition -->
+    <string name="category_standings">Table</string>
+    <string name="category_matches">Fixtures</string>
+    <string name="category_teams">Teams</string>
+    <string name="category_topscorers">Scorers</string>
+
+    //urls
+    <string name="more_apps_url">https://play.google.com/store/apps/developer?id=Maru developers</string>
+    <string name="affiliate_url">https://www.afiliapub.com/affiliates/scripts/click.php?a_aid=23765767&amp;a_bid=051533c4</string>
+
+    //paypal
+
+    <string name="more_apps">More Apps</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="share">Share</string>
+    <string name="terms_of_service">Terms of Service</string>
+
+    <string name="slogan">Live Streaming TV HD</string>
+    <string name="button_start">GET STARTED</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="corner_kicks">CORNER KICKS</string>
+    <string name="free_kicks">FREE KICKS</string>
+    <string name="goal_kicks">GOALS KICKS</string>
+    <string name="offsides">OFFSIDES</string>
+    <string name="fouls">FOULS</string>
+    <string name="ball_possession">BALL POSESSION</string>
+    <string name="saves">SAVES</string>
+    <string name="throw_ins">THROW INS</string>
+    <string name="shots">TOTAL SHOTS</string>
+    <string name="shots_on_goal">SHOTS ON TARGET</string>
+    <string name="shots_off_goal">SHOTS OFF TARGET</string>
+    <string name="yellow_cards">YELLOW CARDS</string>
+    <string name="yellow_red_cards">YELLOW RED CARDS</string>
+    <string name="red_cards">RED CARDS</string>
+    <string name="statisctics">STATISCTICS</string>
+    <string name="_2">2</string>
+    <string name="vs">VS</string>
+</resources>

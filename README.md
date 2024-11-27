@@ -12,7 +12,7 @@
 
 <div class="responsive-images">
 <img  width="200px" alt="kibet"  src="./app/src/main/res/drawable/start_screen.jpg" />
-<img  width="200px" alt="kibet"  src="./app/src/main/res/drawable/=languages_screen.jpg" />
+<img  width="200px" alt="kibet"  src="./app/src/main/res/drawable/languages_screen.jpg" />
 <img  width="200px" alt="kibet"  src="./app/src/main/res/drawable/favorites_screen.jpg" />
 <img  width="200px" alt="kibet"  src="./app/src/main/res/drawable/livescores_screen.jpg" />
 <img  width="200px" alt="kibet"  src="./app/src/main/res/drawable/leagues_screen.jpg" />

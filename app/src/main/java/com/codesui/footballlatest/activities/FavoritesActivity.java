@@ -13,9 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.codesui.footballlatest.R;
 import com.codesui.footballlatest.Utility.Api;
+import com.codesui.footballlatest.ads.AppOpenManager;
 import com.codesui.footballlatest.ads.BannerManager;
+import com.codesui.footballlatest.ads.InterstitialManager;
+import com.codesui.footballlatest.ads.RewardedInterstitialManager;
 
 public class FavoritesActivity extends AppCompatActivity {
+    AppOpenManager appOpenManager;
+    RewardedInterstitialManager rewardedInterstitialManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +28,12 @@ public class FavoritesActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        rewardedInterstitialManager = new RewardedInterstitialManager(FavoritesActivity.this, this);
+        rewardedInterstitialManager.loadAd();
+
+        appOpenManager = new AppOpenManager();
+        appOpenManager.loadAd(this);
 
         String url = "https://api.football-data.org/v4/competitions/PL/teams";
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
@@ -48,9 +59,23 @@ public class FavoritesActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.action_icon) {
             Intent intent = new Intent(FavoritesActivity.this, StartActivity.class);
             finish();
+            rewardedInterstitialManager.showAdNow();
             startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        appOpenManager.showAdIfAvailable(FavoritesActivity.this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        appOpenManager.showAdIfAvailable(FavoritesActivity.this);
     }
 }

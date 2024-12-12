@@ -9,11 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.codesui.footballlatest.R;
+import com.codesui.footballlatest.ads.AppOpenManager;
 import com.codesui.footballlatest.ads.BannerManager;
 import com.codesui.footballlatest.ads.InterstitialManager;
 
 public class ConditionsActivity extends AppCompatActivity {
     InterstitialManager interstitialManager;
+    AppOpenManager appOpenManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +23,9 @@ public class ConditionsActivity extends AppCompatActivity {
 
         interstitialManager = new InterstitialManager();
         interstitialManager.loadInterstitial(ConditionsActivity.this);
+
+        appOpenManager = new AppOpenManager();
+        appOpenManager.loadAd(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -46,5 +51,17 @@ public class ConditionsActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        appOpenManager.showAdIfAvailable(ConditionsActivity.this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        appOpenManager.showAdIfAvailable(ConditionsActivity.this);
     }
 }

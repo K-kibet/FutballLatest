@@ -15,7 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.codesui.footballlatest.Adapter.LanguagesAdapter;
 import com.codesui.footballlatest.R;
+import com.codesui.footballlatest.ads.AppOpenManager;
 import com.codesui.footballlatest.ads.BannerManager;
+import com.codesui.footballlatest.ads.InterstitialManager;
+import com.codesui.footballlatest.ads.RewardedInterstitialManager;
 import com.codesui.footballlatest.data.Language;
 
 import org.json.JSONArray;
@@ -30,7 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LanguageActivity extends AppCompatActivity {
-
+    InterstitialManager interstitialManager;
+    AppOpenManager appOpenManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +42,13 @@ public class LanguageActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        interstitialManager = new InterstitialManager();
+        interstitialManager.loadInterstitial(LanguageActivity.this);
+
+
+        appOpenManager = new AppOpenManager();
+        appOpenManager.loadAd(this);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         List<Language> languageList = new ArrayList<>();
@@ -103,9 +114,23 @@ public class LanguageActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_icon) {
             Intent intent = new Intent(LanguageActivity.this, FavoritesActivity.class);
+            interstitialManager.showInterstitial(LanguageActivity.this);
             startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        appOpenManager.showAdIfAvailable(LanguageActivity.this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        appOpenManager.showAdIfAvailable(LanguageActivity.this);
     }
 }

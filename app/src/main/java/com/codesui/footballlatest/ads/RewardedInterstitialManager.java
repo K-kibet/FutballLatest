@@ -77,20 +77,12 @@ public class RewardedInterstitialManager implements OnUserEarnedRewardListener {
         if (rewardedInterstitialAd != null) {
             rewardedInterstitialAd.show(activity, this::onUserEarnedReward);
         } else {
-            Toast.makeText(activity, "Ad Not Loaded", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(activity, "Ad Not Loaded", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("MySharedPref", MODE_PRIVATE);
-        int adsWatched = sharedPreferences.getInt("ads", 0);
-        SharedPreferences.Editor myEdit = sharedPreferences.edit();
-        if (adsWatched >= 3) {
-            return;
-        }
-        adsWatched += 1;
-        myEdit.putInt("ads", adsWatched);
-        myEdit.apply();
+
     }
 }

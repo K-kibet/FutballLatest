@@ -26,8 +26,10 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.codesui.footballlatest.R;
+import com.codesui.footballlatest.ads.AppOpenManager;
 import com.codesui.footballlatest.ads.BannerManager;
 import com.codesui.footballlatest.ads.InterstitialManager;
+import com.codesui.footballlatest.ads.RewardedInterstitialManager;
 import com.google.android.material.card.MaterialCardView;
 import com.squareup.picasso.Picasso;
 
@@ -40,6 +42,9 @@ import java.util.Map;
 import java.util.TimeZone;
 
 public class MatchActivity extends AppCompatActivity {
+    AppOpenManager appOpenManager;
+    InterstitialManager interstitialManager;
+    RewardedInterstitialManager rewardedInterstitialManager;
     private ProgressBar progressBar;
     private View main;
     private View emptyView;
@@ -70,8 +75,15 @@ public class MatchActivity extends AppCompatActivity {
         String id = intent.getStringExtra("id");
         String url = "https://api.football-data.org/v4/matches/" + id;
 
-        InterstitialManager interstitialManager = new InterstitialManager();
+        interstitialManager = new InterstitialManager();
         interstitialManager.loadInterstitial(MatchActivity.this);
+
+        rewardedInterstitialManager = new RewardedInterstitialManager(MatchActivity.this, this);
+        rewardedInterstitialManager.loadAd();
+
+
+        appOpenManager = new AppOpenManager();
+        appOpenManager.loadAd(this);
 
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -337,6 +349,14 @@ public class MatchActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         finish();
+        rewardedInterstitialManager.showAdNow();
         return true;
+    }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        appOpenManager.showAdIfAvailable(MatchActivity.this);
     }
 }

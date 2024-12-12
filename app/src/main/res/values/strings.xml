@@ -1,10 +1,11 @@
 <resources>
-    <string name="app_name">Live Football Tv</string>
-    <string name="App_Id">ca-app-pub-9576945242972545~9773412619</string>
+    <string name="app_name">MatchLive: Football Live Score</string>
+    <string name="App_Id">ca-app-pub-9576945242972545~6786554219</string>
     <!--Ad Unit -->
-    <string name="Interstitial_Ad_Unit">ca-app-pub-9576945242972545/3835524370</string>
-    <string name="Rewarded_Interstitial_Ad_Unit">ca-app-pub-9576945242972545/7596803502</string>
-    <string name="Banner_Ad_Unit">ca-app-pub-9576945242972545/9170777380</string>
+    <string name="Interstitial_Ad_Unit">ca-app-pub-9576945242972545/4320172979</string>
+    <string name="Rewarded_Interstitial_Ad_Unit">ca-app-pub-9576945242972545/7465211065</string>
+    <string name="Banner_Ad_Unit">ca-app-pub-9576945242972545/3733747983</string>
+    <string name="App_Open_Ad_Unit">ca-app-pub-9576945242972545/9267750466</string>
     <string name="no_matches_found">No Matches Found! Try Again Later</string>
     <!-- for individual competition -->
     <string name="category_standings">Table</string>

@@ -10,19 +10,29 @@ import android.os.Bundle;
 
 import com.codesui.footballlatest.Adapter.CompetitionAdapter;
 import com.codesui.footballlatest.R;
+import com.codesui.footballlatest.ads.AppOpenManager;
+import com.codesui.footballlatest.ads.InterstitialManager;
+import com.codesui.footballlatest.ads.RewardedInterstitialManager;
 import com.google.android.material.tabs.TabLayout;
 
 public class LeagueActivity extends AppCompatActivity {
-
     private static final String KEY_ID = "competition_id";
     private static final String KEY_NAME = "competition_name";
     public String competitionId;
     private String competitionName;
-
+    InterstitialManager interstitialManager;
+    AppOpenManager appOpenManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_league);
+
+
+        interstitialManager = new InterstitialManager();
+        interstitialManager.loadInterstitial(LeagueActivity.this);
+
+        appOpenManager = new AppOpenManager();
+        appOpenManager.loadAd(this);
 
         // Retrieve competition details from intent or saved state
         if (savedInstanceState == null) {
@@ -61,7 +71,21 @@ public class LeagueActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
+        interstitialManager.showInterstitial(LeagueActivity.this);
         finish();
         return true;
+    }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        appOpenManager.showAdIfAvailable(LeagueActivity.this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        appOpenManager.showAdIfAvailable(LeagueActivity.this);
     }
 }

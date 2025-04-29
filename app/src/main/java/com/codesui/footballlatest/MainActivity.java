@@ -4,8 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -14,9 +18,8 @@ import com.codesui.footballlatest.Utility.NetworkChangeListener;
 import com.codesui.footballlatest.Utility.RateManager;
 import com.codesui.footballlatest.Utility.ShareManager;
 import com.codesui.footballlatest.Utility.UrlManager;
-import com.codesui.footballlatest.activities.ConditionsActivity;
 import com.codesui.footballlatest.ads.AppOpenManager;
-import com.codesui.footballlatest.ads.InterstitialManager;
+import com.codesui.footballlatest.ads.BannerManager;
 import com.codesui.footballlatest.fragments.FixturesFragment;
 import com.codesui.footballlatest.fragments.LeaguesFragment;
 import com.codesui.footballlatest.fragments.LivescoresFragment;
@@ -24,54 +27,67 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    InterstitialManager interstitialManager;
     private DrawerLayout drawer;
     private NetworkChangeListener networkChangeListener;
     AppOpenManager appOpenManager;
+    ActionBar actionBar;
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Setup toolbar with competition name
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         appOpenManager = new AppOpenManager();
         appOpenManager.loadAd(this);
 
-        interstitialManager = new InterstitialManager();
-        interstitialManager.loadInterstitial(MainActivity.this);
 
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new LivescoresFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new FixturesFragment()).commit();
 
+        toolbar.setTitle("Fixtures");
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment fragment = null;
             switch (item.getItemId()) {
                 case R.id.leagues:
                     fragment = new LeaguesFragment();
-                    interstitialManager.loadInterstitial(MainActivity.this);
+                    toolbar.setTitle("Leagues");
                     break;
-                case R.id.fixtures:
-                    fragment = new FixturesFragment();
-                    interstitialManager.loadInterstitial(MainActivity.this);
+                case R.id.livescores:
+                    fragment = new LivescoresFragment();
+                    toolbar.setTitle("Live");
                     break;
                 case R.id.more:
                     // Open the navigation drawer when "More" is clicked
                     drawer.openDrawer(GravityCompat.START); // Use GravityCompat.START if the drawer is on the left side
                     return true; // Return true to indicate event is handled
                 default:
-                    fragment = new LivescoresFragment();
-                    interstitialManager.loadInterstitial(MainActivity.this);
+                    fragment = new FixturesFragment();
+                    toolbar.setTitle("Fixtures");
                     break;
 
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
-            interstitialManager.showInterstitial(MainActivity.this);
             return true; // Return true to indicate event is handled
         });
+
+
+        FrameLayout adViewContainer = findViewById(R.id.adViewContainer);
+        BannerManager bannerManager = new BannerManager(this, MainActivity.this, adViewContainer);
+        bannerManager.loadBanner();
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -101,17 +117,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        appOpenManager.showAdIfAvailable(MainActivity.this);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        appOpenManager.showAdIfAvailable(MainActivity.this);
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
 

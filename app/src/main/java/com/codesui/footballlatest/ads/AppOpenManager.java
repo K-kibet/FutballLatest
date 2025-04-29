@@ -5,12 +5,13 @@ import android.app.Activity;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+
+import com.codesui.footballlatest.R;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.appopen.AppOpenAd;
-import com.codesui.footballlatest.R;
 
 import java.util.Date;
 
@@ -29,7 +30,7 @@ public class AppOpenManager {
         AdRequest request = new AdRequest.Builder().build();
         AppOpenAd.load(
                 context, context.getString(R.string.App_Open_Ad_Unit), request,
-                AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,
+                //AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,
                 new AppOpenAd.AppOpenAdLoadCallback() {
                     @Override
                     public void onAdLoaded(AppOpenAd ad) {

@@ -42,29 +42,37 @@ public class FixturesAdapter extends RecyclerView.Adapter<FixturesAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Match match = this.matchList.get(position);
 
+
         holder.textHome.setText(match.getHomeTeam());
         holder.textAway.setText(match.getAwayTeam());
-        holder.textResults.setText(match.getScore());
-        holder.date.setText(formatDateWithSuffix(match.getDate()));
-        String dateTime = match.getDate();
-        //String time = dateTime.split("T")[1].replace(":00Z", ""); // Remove seconds and 'Z'
+        Picasso.get().load(match.getHomeImage()).placeholder(R.drawable.ic_football).error(R.drawable.ic_football).into(holder.homeImage);
+        Picasso.get().load(match.getAwayImage()).placeholder(R.drawable.ic_football).error(R.drawable.ic_football).into(holder.awayImage);
+        //Picasso.get().load(match.getCupImage()).placeholder(R.drawable.ic_football).error(R.drawable.ic_football).into(holder.imageCup);
+        holder.textHomeResult.setText(match.getHomeScore());
+        holder.textAwayResult.setText(match.getAwayScore());
 
-        String date = convertDate(match.getDate());
+        //holder.date.setText(formatDateWithSuffix(match.getDate()));
+        String dateTime = match.getDate();
+        String time = dateTime.split("T")[1].replace(":00Z", ""); // Remove seconds and 'Z'
+
+        holder.time.setText(time);
+        //String date = convertDate(match.getDate());
         if(match.getStatus().equals("LIVE") || match.getStatus().equals("FINISHED") || match.getStatus().equals("IN_PLAY") || match.getStatus().equals("PAUSED")){
             if(match.getStatus().equals("FINISHED")){
                 holder.duration.setText("FT");
             } else {
-                holder.duration.setText(date);
+                //holder.duration.setText(time);
+                holder.duration.setText("🔥");
             }
         } else {
-            if(match.getStatus().equals("SCHEDULED") || match.getStatus().equals("TIMED")){
-                holder.duration.setText(date);
+            if(match.getStatus().equals("SCHEDULED") || match.getStatus().equals("TIMED")|| match.getStatus().equals("POSTPONED")){
+                //holder.duration.setText(time);
+                holder.duration.setText("\uD83D\uDD52");
             } else {
                 holder.duration.setText(match.getStatus());
             }
         }
 
-        Picasso.get().load(match.getCupImage()).placeholder(R.drawable.ic_football).error(R.drawable.ic_football).into(holder.imageCup);
         holder.itemView.setOnClickListener(view -> {
             Intent fixturesIntent = new Intent(FixturesAdapter.this.context, MatchActivity.class);
             fixturesIntent.putExtra("id", match.getId());
@@ -134,19 +142,26 @@ public class FixturesAdapter extends RecyclerView.Adapter<FixturesAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView textHome;
         private final TextView textAway;
-        private final TextView textResults;
+        private final ImageView homeImage;
+        private final ImageView awayImage;
+        //private final ImageView imageCup;
+        private final TextView textHomeResult;
+        private final TextView textAwayResult;
         private final TextView duration;
-        private final TextView date;
-        private final ImageView imageCup;
+        private final TextView time;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.textHome = itemView.findViewById(R.id.textHome);
             this.textAway = itemView.findViewById(R.id.textAway);
-            this.textResults = itemView.findViewById(R.id.textResults);
-            this.imageCup = itemView.findViewById(R.id.imageCup);
+            this.textHomeResult = itemView.findViewById(R.id.textHomeResult);
+            this.textAwayResult = itemView.findViewById(R.id.textAwayResult);
+            this.homeImage = itemView.findViewById(R.id.homeImage);
+            this.awayImage = itemView.findViewById(R.id.awayImage);
+            //this.imageCup = itemView.findViewById(R.id.imageCup);
             this.duration = itemView.findViewById(R.id.duration);
-            this.date = itemView.findViewById(R.id.date);
+            this.time = itemView.findViewById(R.id.time);
         }
     }
+
 }

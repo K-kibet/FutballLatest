@@ -19,7 +19,8 @@
     android:layout_height="match_parent"
     tools:listitem="@layout/language_item"
     android:layout_below="@id/toolbar"
-    android:layout_above="@id/adViewContainer"/>
+    android:layout_above="@id/adViewContainer"
+    android:paddingHorizontal="8dp"/>
 <FrameLayout
     android:id="@+id/adViewContainer"
     android:layout_width="match_parent"

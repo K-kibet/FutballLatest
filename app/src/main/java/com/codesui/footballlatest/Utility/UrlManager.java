@@ -17,7 +17,7 @@ public class UrlManager {
         try {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(context.getString(R.string.more_apps_url)));
-            intent.setPackage("com.codesui.powerkingtips");
+            intent.setPackage(context.getPackageName());
             context.startActivity(intent);
         } catch (ActivityNotFoundException e) {
             Intent intent = new Intent(Intent.ACTION_VIEW);

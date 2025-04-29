@@ -1,87 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="90dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="2dp"
-    app:cardCornerRadius="4dp"
-    app:cardPreventCornerOverlap="true">
+    app:cardElevation="5dp"
+    app:cardCornerRadius="5dp"
+    app:cardPreventCornerOverlap="true"
+    android:layout_margin="5dp">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="3"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/date"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <!--<TextView
+            android:id="@+id/duration"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="FT"
-            android:paddingHorizontal="20dp"
-            android:layout_weight="2.3"
-            android:textAlignment="textEnd"/>
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_weight="2"
+            android:textSize="18sp"/>-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight=".7"
-            android:weightSum="5"
-            android:gravity="center">
-            <LinearLayout
+            android:weightSum="2"
+            android:layout_weight="2"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/duration"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:weightSum="3"
-                android:layout_weight="4"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/duration"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="FT"
-                    android:layout_weight="2"
-                    android:textAlignment="center"/>
-                <ImageView
-                    android:id="@+id/imageCup"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:foregroundGravity="center"
-                    android:scaleType="fitCenter"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_football" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:text="FT"
+                android:layout_weight="1"
+                android:textAlignment="center"
                 android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="22:00"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+            <!--<ImageView
+                android:id="@+id/imageCup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:foregroundGravity="center"
+                android:scaleType="fitCenter"
+                android:padding="5dp"
+                android:src="@drawable/ic_football" />-->
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="start"
                 android:layout_weight="1">
+                <ImageView
+                    android:id="@+id/homeImage"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/baseline_apps_24"/>
+
                 <TextView
                     android:id="@+id/textHome"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Barcelona"
+                    android:layout_height="match_parent"
+                    android:text="Atletico Madrid"
+                    android:gravity="center_vertical"
+                    android:layout_marginHorizontal="5dp"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:textSize="18sp" />
-                <TextView
-                    android:id="@+id/textResults"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="0-0"
-                    android:layout_weight="1.5"
-                    android:gravity="center"
-                    android:textColor="@color/green"
-                    android:textSize="20sp"/>
+                    android:textSize="16sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="start"
+                android:layout_weight="1">
+                <ImageView
+                    android:id="@+id/awayImage"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/baseline_apps_24"/>
                 <TextView
                     android:id="@+id/textAway"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Barcelona"
+                    android:layout_height="match_parent"
+                    android:text="Atletico Madrid"
+                    android:gravity="center_vertical"
+                    android:layout_marginHorizontal="5dp"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:textSize="18sp"/>
+                    android:textSize="16sp"/>
             </LinearLayout>
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="end"
+            android:layout_weight="2">
+            <TextView
+                android:id="@+id/textHomeResult"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:text="1"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/textAwayResult"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="3"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:textSize="20sp"/>
+        </LinearLayout>
     </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

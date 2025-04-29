@@ -4,12 +4,14 @@ public class League {
     private final String leagueName;
     private final String leagueArena;
     private final String leagueId;
+    private final String code;
     private final String leagueImage;
 
-    public League(String name, String arena, String id, String leagueImage) {
+    public League(String name, String arena, String id, String code, String leagueImage) {
         this.leagueName = name;
         this.leagueArena = arena;
         this.leagueId = id;
+        this.code = code;
         this.leagueImage = leagueImage;
     }
     public String getLeagueName() {
@@ -25,5 +27,9 @@ public class League {
 
     public String getLeagueId() {
         return leagueId;
+    }
+
+    public String getCode() {
+        return code;
     }
 }

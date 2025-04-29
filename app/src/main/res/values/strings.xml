@@ -1,12 +1,32 @@
 <resources>
-    <string name="app_name">MatchLive: Football Live Score</string>
-    <string name="App_Id">ca-app-pub-9576945242972545~6786554219</string>
+    <string name="app_name">LivescoreX</string>
+    <string name="App_Id">ca-app-pub-8094399119240359~4235631580</string>
     <!--Ad Unit -->
-    <string name="Interstitial_Ad_Unit">ca-app-pub-9576945242972545/4320172979</string>
-    <string name="Rewarded_Interstitial_Ad_Unit">ca-app-pub-9576945242972545/7465211065</string>
-    <string name="Banner_Ad_Unit">ca-app-pub-9576945242972545/3733747983</string>
-    <string name="App_Open_Ad_Unit">ca-app-pub-9576945242972545/9267750466</string>
+    <string name="Interstitial_Ad_Unit">ca-app-pub-8094399119240359/3308503239</string>
+    <string name="Rewarded_Interstitial_Ad_Unit">ca-app-pub-9576945242972545/7465211000</string>
+    <string name="Banner_Ad_Unit">ca-app-pub-8094399119240359/7695530290</string>
+    <string name="App_Open_Ad_Unit">ca-app-pub-9576945242972545/9267750400</string>
+
     <string name="no_matches_found">No Matches Found! Try Again Later</string>
+    <string name="error_matches">An Error Occurred While Trying To Fetch Fixtures! Try Again Later</string>
+
+    <string name="no_live_matches">No Live Matches Found!</string>
+    <string name="error_live_matches">An Error Occurred While Trying To Fetch Live Matches! Try Again Later</string>
+
+
+    <string name="no_leagues_found"></string>
+    <string name="error_leagues">An Error Occurred While Trying To Fetch Leagues! Try Again Later</string>
+
+    <string name="no_standings_found"></string>
+    <string name="error_standings">An Error Occurred While Trying To Fetch Standings! Try Again Later</string>
+
+    <string name="no_teams_found"></string>
+    <string name="error_teams">An Error Occurred While Trying To Fetch Teams! Try Again Later</string>
+
+    <string name="no_topscoreres_found"></string>
+    <string name="error_topscorers">An Error Occurred While Trying To Fetch Top Scorers!</string>
+
+
     <!-- for individual competition -->
     <string name="category_standings">Table</string>
     <string name="category_matches">Fixtures</string>
@@ -24,7 +44,7 @@
     <string name="share">Share</string>
     <string name="terms_of_service">Terms of Service</string>
 
-    <string name="slogan">Live Streaming TV HD</string>
+    <string name="slogan">Football Livescores</string>
     <string name="button_start">GET STARTED</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="corner_kicks">CORNER KICKS</string>

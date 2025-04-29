@@ -4,7 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,9 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.codesui.footballlatest.R;
 import com.codesui.footballlatest.Utility.Api;
 import com.codesui.footballlatest.activities.LeagueActivity;
-import com.codesui.footballlatest.ads.BannerManager;
 
 public class StandingsFragment extends Fragment {
+    ProgressBar progressBar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -29,6 +30,8 @@ public class StandingsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        progressBar = view.findViewById(R.id.progressBar);
+        TextView textEmpty = view.findViewById(R.id.textEmpty);
         LeagueActivity competitionActivity = (LeagueActivity) getActivity();
         String competitionId = competitionActivity.competitionId;
 
@@ -38,10 +41,6 @@ public class StandingsFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         Api api = new Api(getActivity(), getContext());
-        api.loadStandings(url, recyclerView);
-
-        FrameLayout adViewContainer = view.findViewById(R.id.adViewContainer);
-        BannerManager bannerManager = new BannerManager(requireContext(), requireActivity(), adViewContainer);
-        bannerManager.loadBanner();
+        api.loadStandings(url, recyclerView, progressBar, textEmpty);
     }
 }

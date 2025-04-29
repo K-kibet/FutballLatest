@@ -12,6 +12,7 @@
         android:layout_alignParentTop="true"
         android:orientation="horizontal"
         android:scrollbars="horizontal"
+        android:overScrollMode="never"
         tools:listitem="@layout/home_league"
         android:layout_marginVertical="5dp"/>
     <androidx.recyclerview.widget.RecyclerView
@@ -20,10 +21,25 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/item_fixture"
         android:layout_below="@id/horizontalRecyclerView"
-        android:layout_above="@id/adViewContainer"/>
-    <FrameLayout
-        android:id="@+id/adViewContainer"
+        android:layout_alignParentBottom="true"/>
+    <TextView
+        android:id="@+id/textEmpty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/no_live_matches"
+        android:visibility="gone"/>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"/>
 </RelativeLayout>

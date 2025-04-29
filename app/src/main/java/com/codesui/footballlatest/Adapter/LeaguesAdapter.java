@@ -45,6 +45,7 @@ public class LeaguesAdapter extends RecyclerView.Adapter<LeaguesAdapter.ViewHold
             Intent leagueIntent = new Intent(LeaguesAdapter.this.context, LeagueActivity.class);
             leagueIntent.putExtra("competitionName", league.getLeagueArena());
             leagueIntent.putExtra("competitionId", league.getLeagueId());
+            leagueIntent.putExtra("competitionCode", league.getCode());
             LeaguesAdapter.this.context.startActivity(leagueIntent);
             interstitialManager.showInterstitial(LeaguesAdapter.this.activity);
         });

@@ -3,6 +3,10 @@ package com.codesui.footballlatest.Utility;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -82,7 +86,7 @@ public class Api {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void loadCompetitions (String url, RecyclerView recyclerView) {
+    public void loadCompetitions (String url, RecyclerView recyclerView, ProgressBar progressBar, TextView textEmpty) {
         List<League> leagueList = new ArrayList<>();
         LeaguesAdapter leaguesAdapter = new LeaguesAdapter(context, activity, leagueList);
         recyclerView.setAdapter(leaguesAdapter);
@@ -97,15 +101,32 @@ public class Api {
                                     jsonArray.getJSONObject(i).getJSONObject("area").getString("name"),
                                     jsonArray.getJSONObject(i).getString("name"),
                                     jsonArray.getJSONObject(i).getString("id"),
+                                    jsonArray.getJSONObject(i).getString("code"),
                                     jsonArray.getJSONObject(i).getString("emblem"));
                             leagueList.add(item);
                         }
                         leaguesAdapter.notifyDataSetChanged();
+                        progressBar.setVisibility(View.GONE);
+                        if(leagueList.isEmpty()) {
+                            textEmpty.setText(R.string.no_leagues_found);
+                            textEmpty.setVisibility(View.VISIBLE);
+                        } else {
+                            textEmpty.setVisibility(View.GONE); // Hide emptyText if data is present
+                        }
                     } catch (JSONException e) {
-                        //alertDialog.show();
+                        progressBar.setVisibility(View.GONE);
+                        if(leagueList.isEmpty()) {
+                            textEmpty.setText(R.string.error_leagues);
+                            textEmpty.setVisibility(View.VISIBLE);
+                        }
                     }
                 }, error -> {
                     //alertDialog.show();
+                    progressBar.setVisibility(View.GONE);
+                    if(leagueList.isEmpty()) {
+                        textEmpty.setText(R.string.error_leagues);
+                        textEmpty.setVisibility(View.VISIBLE);
+                    }
                 }){
             @Override
             public Map<String, String> getHeaders() {
@@ -115,10 +136,12 @@ public class Api {
                 return params;
             }
         };
+        progressBar.setVisibility(View.VISIBLE);
+        textEmpty.setVisibility(View.GONE);
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void loadTeams(String url, RecyclerView recyclerView) {
+    public void loadTeams(String url, RecyclerView recyclerView, ProgressBar progressBar, TextView textEmpty) {
         List<Team> teamList = new ArrayList<>();
         TeamsAdapter teamsAdapter = new TeamsAdapter(teamList);
         recyclerView.setAdapter(teamsAdapter);
@@ -136,12 +159,29 @@ public class Api {
                             teamList.add(team);
                         }
                         teamsAdapter.notifyDataSetChanged();
+                        progressBar.setVisibility(View.GONE);
+                        if(teamList.isEmpty()) {
+                            textEmpty.setText(R.string.no_teams_found);
+                            textEmpty.setVisibility(View.VISIBLE);
+                        } else {
+                            textEmpty.setVisibility(View.GONE); // Hide emptyText if data is present
+                        }
 
                     } catch (JSONException e) {
                         //dialogManager.showDialog();
+                        progressBar.setVisibility(View.GONE);
+                        if(teamList.isEmpty()) {
+                            textEmpty.setText(R.string.error_teams);
+                            textEmpty.setVisibility(View.VISIBLE);
+                        }
                     }
                 }, error -> {
                     //dialogManager.showDialog();
+                    progressBar.setVisibility(View.GONE);
+                    if(teamList.isEmpty()) {
+                        textEmpty.setText(R.string.error_teams);
+                        textEmpty.setVisibility(View.VISIBLE);
+                    }
                 }) {
             @Override
             public Map<String, String> getHeaders() {
@@ -150,11 +190,13 @@ public class Api {
                 return params;
             }
         };
+        progressBar.setVisibility(View.VISIBLE);
+        textEmpty.setVisibility(View.GONE);
         requestQueue.add(jsonObjectRequest);
     }
 
 
-    public void loadStandings(String url, RecyclerView recyclerView) {
+    public void loadStandings(String url, RecyclerView recyclerView, ProgressBar progressBar, TextView textEmpty) {
         List<Standing> standingList = new ArrayList<>();
         StandingsAdapter standingsAdapter = new StandingsAdapter(standingList);
         recyclerView.setAdapter(standingsAdapter);
@@ -179,12 +221,28 @@ public class Api {
                             standingList.add(standing);
                         }
                         standingsAdapter.notifyDataSetChanged();
-
+                        progressBar.setVisibility(View.GONE);
+                        if(standingList.isEmpty()) {
+                            textEmpty.setText(R.string.no_standings_found);
+                            textEmpty.setVisibility(View.VISIBLE);
+                        } else {
+                            textEmpty.setVisibility(View.GONE); // Hide emptyText if data is present
+                        }
                     } catch (JSONException e) {
                         //dialogManager.showDialog();
+                        progressBar.setVisibility(View.GONE);
+                        if(standingList.isEmpty()) {
+                            textEmpty.setText(R.string.error_standings);
+                            textEmpty.setVisibility(View.VISIBLE);
+                        }
                     }
                 }, error ->{
                     //dialogManager.showDialog();
+                    progressBar.setVisibility(View.GONE);
+                    if(standingList.isEmpty()) {
+                        textEmpty.setText(R.string.error_standings);
+                        textEmpty.setVisibility(View.VISIBLE);
+                    }
                 } ) {
             @Override
             public Map<String, String> getHeaders() {
@@ -193,10 +251,12 @@ public class Api {
                 return params;
             }
         };
+        progressBar.setVisibility(View.VISIBLE);
+        textEmpty.setVisibility(View.GONE);
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void loadPlayers(String url, RecyclerView recyclerView) {
+    public void loadPlayers(String url, RecyclerView recyclerView, ProgressBar progressBar, TextView textEmpty) {
         List<Player> playerList = new ArrayList<>();
         PlayersAdapter playersAdapter = new PlayersAdapter(playerList);
         recyclerView.setAdapter(playersAdapter);
@@ -223,12 +283,28 @@ public class Api {
                             playerList.add(player);
                         }
                         playersAdapter.notifyDataSetChanged();
+                        progressBar.setVisibility(View.GONE);
+                        if(playerList.isEmpty()) {
+                            textEmpty.setText(R.string.no_topscoreres_found);
+                            textEmpty.setVisibility(View.VISIBLE);
+                        } else {
+                            textEmpty.setVisibility(View.GONE); // Hide emptyText if data is present
+                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();  // Log the error
+                        progressBar.setVisibility(View.GONE);
+                        if(playerList.isEmpty()) {
+                            textEmpty.setText(R.string.error_topscorers);
+                            textEmpty.setVisibility(View.VISIBLE);
+                        }
                     }
                 }, error -> {
-
+                    progressBar.setVisibility(View.GONE);
+                    if(playerList.isEmpty()) {
+                        textEmpty.setText(R.string.error_topscorers);
+                        textEmpty.setVisibility(View.VISIBLE);
+                    }
                 }) {
 
             // Add required headers (e.g., Authorization token)
@@ -239,12 +315,13 @@ public class Api {
                 return params;
             }
         };
-
+        progressBar.setVisibility(View.VISIBLE);
+        textEmpty.setVisibility(View.GONE);
         // Add the request to the RequestQueue
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void loadMatches(String url, RecyclerView recyclerView) {
+    public void loadMatches(String url, RecyclerView recyclerView, ProgressBar progressBar, TextView textEmpty) {
         List<Match> matchList = new ArrayList<>();
         FixturesAdapter fixturesAdapter = new FixturesAdapter(context, activity, matchList);
         recyclerView.setAdapter(fixturesAdapter);
@@ -256,43 +333,45 @@ public class Api {
                         JSONArray jsonArray = response.getJSONArray("matches");
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                           /* String status = jsonObject.getString("status");
-                            String minute;
-
-                            if(status.equals("LIVE") || status.equals("FINISHED") || status.equals("IN_PLAY") || status.equals("PAUSED")){
-                                if(status.equals("FINISHED")){
-                                    minute = "FT";
-                                } else {
-                                    minute = response.getString("minute") + "'";
-                                }
-                            } else {
-                                if(status.equals("SCHEDULED") || status.equals("TIMED")){
-                                    minute = convertDate(response.getString("utcDate"));
-                                } else {
-                                    minute = status;
-                                }
-                            }*/
-
                             Match match = new Match(
                                     jsonObject.getString("id"),
                                     jsonObject.getJSONObject("homeTeam").getString("shortName"),
                                     jsonObject.getJSONObject("awayTeam").getString("shortName"),
+                                    jsonObject.getJSONObject("homeTeam").getString("crest"),
+                                    jsonObject.getJSONObject("awayTeam").getString("crest"),
                                     jsonObject.getJSONObject("competition").getString("emblem"),
-                                    jsonObject.getJSONObject("score").getJSONObject("fullTime").getString("home") + "-" + jsonObject.getJSONObject("score").getJSONObject("fullTime").getString("away"),
+                                    jsonObject.getJSONObject("score").getJSONObject("fullTime").getString("home"),
+                                    jsonObject.getJSONObject("score").getJSONObject("fullTime").getString("away"),
                                     jsonObject.getString("utcDate"), jsonObject.getString("status"));
                             if (jsonObject.getJSONObject("score").getJSONObject("fullTime").getString("home").equals("null")) {
-                                match.setScore("?-?");
+                                match.setHomeScore("?");
+                                match.setAwayScore("?");
                             }
 
                             matchList.add(match);
                         }
                         fixturesAdapter.notifyDataSetChanged();
+                        progressBar.setVisibility(View.GONE);
+                        if(matchList.isEmpty()) {
+                            textEmpty.setText(R.string.no_matches_found);
+                            textEmpty.setVisibility(View.VISIBLE);
+                        } else {
+                            textEmpty.setVisibility(View.GONE); // Hide emptyText if data is present
+                        }
+
                     } catch (JSONException e) {
-                        //
+                        progressBar.setVisibility(View.GONE);
+                        if(matchList.isEmpty()) {
+                            textEmpty.setText(R.string.error_matches);
+                            textEmpty.setVisibility(View.VISIBLE);
+                        }
                     }
                 }, error -> {
-
+                    progressBar.setVisibility(View.GONE);
+                    if(matchList.isEmpty()) {
+                        textEmpty.setText(R.string.error_matches);
+                        textEmpty.setVisibility(View.VISIBLE);
+                    }
                 }) {
             @Override
             public Map<String, String> getHeaders() {
@@ -302,6 +381,8 @@ public class Api {
                 return params;
             }
         };
+        progressBar.setVisibility(View.VISIBLE);
+        textEmpty.setVisibility(View.GONE);
         requestQueue.add(jsonObjectRequest);
     }
 }

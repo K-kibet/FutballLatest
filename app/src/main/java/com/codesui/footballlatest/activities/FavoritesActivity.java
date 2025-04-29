@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -21,10 +23,14 @@ import com.codesui.footballlatest.ads.RewardedInterstitialManager;
 public class FavoritesActivity extends AppCompatActivity {
     AppOpenManager appOpenManager;
     RewardedInterstitialManager rewardedInterstitialManager;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
+
+        progressBar = findViewById(R.id.progressBar);
+        TextView textEmpty = findViewById(R.id.textEmpty);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -41,7 +47,7 @@ public class FavoritesActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(linearLayoutManager);
         Api api = new Api(FavoritesActivity.this, this);
-        api.loadTeams(url, recyclerView);
+        api.loadTeams(url, recyclerView, progressBar, textEmpty);
 
         FrameLayout adViewContainer = findViewById(R.id.adViewContainer);
         BannerManager bannerManager = new BannerManager(this, FavoritesActivity.this, adViewContainer);

@@ -30,11 +30,4 @@ public class UrlManager {
         Intent intent = new Intent(context, ConditionsActivity.class);
         context.startActivity(intent);
     }
-
-    public void getFreeBet() {
-        Uri uri = Uri.parse(context.getString(R.string.affiliate_url));
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        context.startActivity(intent);
-    }
-
 }

@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">LivescoreX</string>
+    <string name="app_name">Livescore HD</string>
     <string name="App_Id">ca-app-pub-8094399119240359~4235631580</string>
     <!--Ad Unit -->
     <string name="Interstitial_Ad_Unit">ca-app-pub-8094399119240359/3308503239</string>
-    <string name="Rewarded_Interstitial_Ad_Unit">ca-app-pub-9576945242972545/7465211000</string>
+    <string name="Rewarded_Interstitial_Ad_Unit">ca-app-pub-8094399119240359/8212651026</string>
     <string name="Banner_Ad_Unit">ca-app-pub-8094399119240359/7695530290</string>
-    <string name="App_Open_Ad_Unit">ca-app-pub-9576945242972545/9267750400</string>
+    <string name="App_Open_Ad_Unit">ca-app-pub-8094399119240359/4792506103</string>
 
     <string name="no_matches_found">No Matches Found! Try Again Later</string>
     <string name="error_matches">An Error Occurred While Trying To Fetch Fixtures! Try Again Later</string>
@@ -35,8 +35,6 @@
 
     //urls
     <string name="more_apps_url">https://play.google.com/store/apps/developer?id=Maru developers</string>
-    <string name="affiliate_url">https://www.afiliapub.com/affiliates/scripts/click.php?a_aid=23765767&amp;a_bid=051533c4</string>
-
     //paypal
 
     <string name="more_apps">More Apps</string>

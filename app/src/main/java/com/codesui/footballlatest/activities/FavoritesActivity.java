@@ -63,7 +63,7 @@ public class FavoritesActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_icon) {
-            Intent intent = new Intent(FavoritesActivity.this, StartActivity.class);
+            Intent intent = new Intent(FavoritesActivity.this, StartedActivity.class);
             finish();
             rewardedInterstitialManager.showAdNow();
             startActivity(intent);

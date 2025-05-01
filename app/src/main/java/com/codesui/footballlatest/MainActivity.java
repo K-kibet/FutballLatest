@@ -1,19 +1,27 @@
 package com.codesui.footballlatest;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.codesui.footballlatest.Utility.ApiPollingService;
 import com.codesui.footballlatest.Utility.NetworkChangeListener;
 import com.codesui.footballlatest.Utility.RateManager;
 import com.codesui.footballlatest.Utility.ShareManager;
@@ -85,9 +93,28 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this,
+                drawer,
+                toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close
+        );
+
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+
+
         FrameLayout adViewContainer = findViewById(R.id.adViewContainer);
         BannerManager bannerManager = new BannerManager(this, MainActivity.this, adViewContainer);
         bannerManager.loadBanner();
+
+        //checkAndRequestNotificationPermission();
+        //Intent serviceIntent = new Intent(this, ApiPollingService.class);
+        //ContextCompat.startForegroundService(this, serviceIntent);
+        //stopService(new Intent(this, ApiPollingService.class)); //You can stop it when needed
+
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -117,8 +144,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
     public boolean onSupportNavigateUp() {
-        finish();
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            drawer.openDrawer(GravityCompat.START);
+        }
         return true;
     }
 
@@ -139,4 +171,33 @@ public class MainActivity extends AppCompatActivity {
             unregisterReceiver(networkChangeListener);
         }
     }
+
+    /*private void checkAndRequestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, "android.permission.POST_NOTIFICATIONS")
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(
+                        this,
+                        new String[]{"android.permission.POST_NOTIFICATIONS"},
+                        101
+                );
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 101) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted - you can now send notifications
+            } else {
+                // Permission denied - you might want to show a message
+            }
+        }
+    }*/
+
+
 }

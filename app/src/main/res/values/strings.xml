@@ -62,4 +62,8 @@
     <string name="statisctics">STATISCTICS</string>
     <string name="_2">2</string>
     <string name="vs">VS</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="welcome_message">Welcome to %1$s!</string>
 </resources>

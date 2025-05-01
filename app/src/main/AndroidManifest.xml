@@ -18,6 +18,12 @@
         android:theme="@style/Theme.FootballLatest"
         tools:targetApi="34">
         <activity
+            android:name=".activities.StartedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.WalkthroughActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.MatchActivity"
             android:exported="false" />
         <activity
@@ -51,6 +57,11 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/App_Id" />
+
+        <service
+            android:name=".Utility.ApiPollingService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
     </application>
 
 </manifest>

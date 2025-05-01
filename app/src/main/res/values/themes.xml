@@ -20,12 +20,15 @@
         <item name="drawerBackground">@color/white</item>
         <item name="iconColor">@color/black</item>
         <item name="bottomNav">@color/light_gray</item>
+        <item name="roundButtonBackground">@color/light_gray</item>
+        <item name="cardBackground">@color/grey_version</item>
+        <item name="dashBackground">@color/green</item>
     </style>
 
     <style name="Theme.NavigationDrawer" parent="ThemeOverlay.MaterialComponents.Light">
         <item name="android:scrollbarThumbVertical">@android:color/transparent</item>
-        <item name="colorControlHighlight">@color/light_green</item>
-        <item name="colorPrimary">@color/green</item>
+        <item name="colorControlHighlight">@color/green</item>
+        <item name="colorPrimary">@color/light_green</item>
     </style>
 
 </resources>

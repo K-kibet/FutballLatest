@@ -3,6 +3,8 @@ package com.codesui.footballlatest.Adapter;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.res.Resources;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +76,34 @@ public class HomeLeagueAdapter extends RecyclerView.Adapter<HomeLeagueAdapter.Vi
 
         // Set background color based on whether the item is selected
         if (position == selectedPosition) {
-            holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.light_gray)); // Set selected color
+            //holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.light_gray)); // Set selected color
+            holder.itemView.setBackground(ContextCompat.getDrawable(context, R.drawable.selected_background));
+        } else {
+            // Resolve the theme attribute (e.g., cardBackground) to a color
+            TypedValue typedValue = new TypedValue();
+            Resources.Theme theme = context.getTheme();
+            theme.resolveAttribute(R.attr.cardBackground, typedValue, true);
+
+            int backgroundColor;
+            if (typedValue.resourceId != 0) {
+                // Attribute is a reference to a color resource
+                backgroundColor = ContextCompat.getColor(context, typedValue.resourceId);
+            } else {
+                // Attribute is a direct color value
+                backgroundColor = typedValue.data;
+            }
+            holder.itemView.setBackgroundColor(backgroundColor);
+
+            //default card background color
+            /*TypedValue typedValue = new TypedValue();
+            context.getTheme().resolveAttribute(R.attr.cardBackground, typedValue, true);
+
+            int defaultColor = typedValue.resourceId != 0
+                    ? ContextCompat.getColor(context, typedValue.resourceId)
+                    : typedValue.data;
+
+            holder.itemView.setBackgroundColor(defaultColor);*/
+
         }
 
     }

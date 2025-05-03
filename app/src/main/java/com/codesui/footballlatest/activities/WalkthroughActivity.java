@@ -1,9 +1,5 @@
 package com.codesui.footballlatest.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,8 +9,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.codesui.footballlatest.Adapter.WalkthroughAdapter;
-import com.codesui.footballlatest.MainActivity;
 import com.codesui.footballlatest.R;
 
 public class WalkthroughActivity extends AppCompatActivity {
@@ -22,8 +21,8 @@ public class WalkthroughActivity extends AppCompatActivity {
     private ViewPager2 viewPager;
     private LinearLayout layoutIndicators;
     private Button buttonNext;
-    private TextView btnSkip;
     private WalkthroughAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +39,7 @@ public class WalkthroughActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
         layoutIndicators = findViewById(R.id.layoutOnboardingIndicators);
         buttonNext = findViewById(R.id.buttonNext);
-        btnSkip = findViewById(R.id.btnSkip);
+        TextView btnSkip = findViewById(R.id.btnSkip);
 
         adapter = new WalkthroughAdapter(this);
         viewPager.setAdapter(adapter);
@@ -54,9 +53,9 @@ public class WalkthroughActivity extends AppCompatActivity {
                 super.onPageSelected(position);
                 setCurrentIndicator(position);
                 if (position == adapter.getItemCount() - 1) {
-                    buttonNext.setText("Continue");
+                    buttonNext.setText(R.string.continue_string);
                 } else {
-                    buttonNext.setText("Next");
+                    buttonNext.setText(R.string.next);
                 }
             }
         });

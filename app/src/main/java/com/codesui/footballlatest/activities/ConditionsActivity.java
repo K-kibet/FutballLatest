@@ -16,6 +16,7 @@ import com.codesui.footballlatest.ads.InterstitialManager;
 public class ConditionsActivity extends AppCompatActivity {
     InterstitialManager interstitialManager;
     AppOpenManager appOpenManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

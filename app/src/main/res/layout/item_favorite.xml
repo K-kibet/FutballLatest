@@ -1,42 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="2dp"
-    app:cardCornerRadius="4dp"
+    android:layout_margin="6dp"
+    android:backgroundTint="?attr/cardBackground"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="0dp"
     app:cardPreventCornerOverlap="true">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:padding="5dp"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:padding="5dp">
+
         <ImageView
             android:id="@+id/imageTeam"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1.8"
             android:layout_gravity="center"
+            android:layout_weight="1.8"
             android:foregroundGravity="center"
             android:scaleType="centerInside"
             android:src="@mipmap/ic_launcher" />
+
         <TextView
             android:id="@+id/textTeam"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Atletico Madrid"
-            android:gravity="center_vertical"
-            android:layout_weight="1"
             android:layout_marginHorizontal="10dp"
-            android:textSize="18sp"/>
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="Atletico Madrid"
+            android:textSize="18sp" />
+
         <ImageView
             android:id="@+id/buttonFavorite"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:scaleType="centerInside"
-            android:src="@drawable/baseline_star_outline_24"/>
+            android:src="@drawable/baseline_star_outline_24" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

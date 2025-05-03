@@ -6,33 +6,37 @@
     tools:context=".fragments.LivescoresFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/horizontalRecyclerView"
+        android:id="@+id/leagueFilterRecycler"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_marginVertical="5dp"
+        android:layout_marginBottom="8dp"
         android:orientation="horizontal"
-        android:scrollbars="horizontal"
         android:overScrollMode="never"
-        tools:listitem="@layout/home_league"
-        android:layout_marginVertical="5dp"/>
+        android:scrollbars="horizontal"
+        tools:listitem="@layout/item_home_league" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_fixture"
-        android:layout_below="@id/horizontalRecyclerView"
-        android:layout_alignParentBottom="true"/>
+        android:layout_below="@id/leagueFilterRecycler"
+        android:layout_alignParentBottom="true"
+        tools:listitem="@layout/item_fixture" />
+
     <TextView
         android:id="@+id/textEmpty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:gravity="center"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
+        android:gravity="center"
         android:text="@string/no_live_matches"
-        android:visibility="gone"/>
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="50dp"
@@ -41,5 +45,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:layout_margin="150dp" />
 </RelativeLayout>

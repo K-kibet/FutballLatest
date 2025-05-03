@@ -17,11 +17,11 @@ import com.codesui.footballlatest.ads.InterstitialManager;
 import com.google.android.material.tabs.TabLayout;
 
 public class LeagueActivity extends AppCompatActivity {
-    public String competitionId;
-    private String competitionName;
+    public int competitionId;
     public String competitionCode;
     InterstitialManager interstitialManager;
     AppOpenManager appOpenManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +35,8 @@ public class LeagueActivity extends AppCompatActivity {
 
         // Only use intent data
         Intent intent = getIntent();
-        competitionId = intent.getStringExtra("competitionId");
-        competitionName = intent.getStringExtra("competitionName");
+        competitionId = intent.getIntExtra("competitionId", -1);
+        String competitionName = intent.getStringExtra("competitionName");
         competitionCode = intent.getStringExtra("competitionCode");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -49,7 +49,7 @@ public class LeagueActivity extends AppCompatActivity {
         }
 
         ViewPager viewPager = findViewById(R.id.view_pager);
-        viewPager.setAdapter(new CompetitionAdapter(this, getSupportFragmentManager()));
+        viewPager.setAdapter(new CompetitionAdapter(this, getSupportFragmentManager(), competitionId, competitionCode));
 
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);

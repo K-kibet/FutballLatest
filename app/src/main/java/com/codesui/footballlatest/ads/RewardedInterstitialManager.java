@@ -1,11 +1,10 @@
 package com.codesui.footballlatest.ads;
 
-import static android.content.Context.MODE_PRIVATE;
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+
 import com.codesui.footballlatest.R;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
@@ -20,6 +19,7 @@ public class RewardedInterstitialManager implements OnUserEarnedRewardListener {
     Activity activity;
     Context context;
     private RewardedInterstitialAd rewardedInterstitialAd;
+
     public RewardedInterstitialManager(Activity activity, Context context) {
 
         this.activity = activity;

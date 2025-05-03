@@ -1,8 +1,6 @@
 package com.codesui.footballlatest.Utility;
 
 import android.app.Application;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.IntentFilter;
 
 public class MyApplication extends Application {

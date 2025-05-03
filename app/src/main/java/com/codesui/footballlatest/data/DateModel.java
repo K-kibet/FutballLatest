@@ -3,9 +3,9 @@ package com.codesui.footballlatest.data;
 import java.util.Date;
 
 public class DateModel {
-    private String dayNumber;
-    private String dayName;
-    private Date fullDate;
+    private final String dayNumber;
+    private final String dayName;
+    private final Date fullDate;
 
     public DateModel(String dayNumber, String dayName, Date fullDate) {
         this.dayNumber = dayNumber;

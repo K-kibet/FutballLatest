@@ -13,8 +13,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.codesui.footballlatest.Adapter.LeaguesAdapter;
 import com.codesui.footballlatest.R;
-import com.codesui.footballlatest.Utility.Api;
+import com.codesui.footballlatest.Utility.JsonResource;
+import com.codesui.footballlatest.data.League;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LeaguesFragment extends Fragment {
     @Override
@@ -28,13 +37,49 @@ public class LeaguesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ProgressBar progressBar = view.findViewById(R.id.progressBar);
         TextView textEmpty = view.findViewById(R.id.textEmpty);
-        String url = "https://api.football-data.org/v4/competitions";
+
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 
+        List<League> leagueList = new ArrayList<>();
+        recyclerView.setLayoutManager(linearLayoutManager);
+        LeaguesAdapter leaguesAdapter = new LeaguesAdapter(requireContext(), requireActivity(),leagueList);
+
+        try {
+            progressBar.setVisibility(View.VISIBLE);
+            JsonResource jsonResource = new JsonResource();
+            // Load and parse the JSON file
+            String jsonData = jsonResource.loadJSONFromRawResource(requireContext(), R.raw.leagues);
+            JSONArray jsonArray = new JSONArray(jsonData);
+
+            // Access elements from the JSONArray
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                League item = new League(
+                        jsonObject.getJSONObject("area").getString("name"),
+                        jsonObject.getString("name"),
+                        jsonObject.getInt("id"),
+                        jsonObject.getString("code"),
+                        jsonObject.getString("emblem"));
+                leagueList.add(item);
+            }
+
+            recyclerView.setAdapter(leaguesAdapter);
+            leaguesAdapter.notifyDataSetChanged(); // Notify the adapter of data changes
+            progressBar.setVisibility(View.GONE);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            progressBar.setVisibility(View.GONE);
+            textEmpty.setText(R.string.error_teams);
+            textEmpty.setVisibility(View.VISIBLE);
+        }
+
+
+        /*
+        String url = "https://api.football-data.org/v4/competitions";
         recyclerView.setLayoutManager(linearLayoutManager);
         Api api = new Api(getActivity(), getContext());
-        api.loadCompetitions(url, recyclerView, progressBar, textEmpty);
+        api.loadCompetitions(url, recyclerView, progressBar, textEmpty);*/
     }
 
 }

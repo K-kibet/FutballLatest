@@ -2,7 +2,9 @@ package com.codesui.footballlatest.ads;
 
 import android.app.Activity;
 import android.os.Handler;
+
 import androidx.annotation.NonNull;
+
 import com.codesui.footballlatest.R;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;

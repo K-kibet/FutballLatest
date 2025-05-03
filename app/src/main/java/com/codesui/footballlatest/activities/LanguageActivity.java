@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,10 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.codesui.footballlatest.Adapter.LanguagesAdapter;
 import com.codesui.footballlatest.R;
+import com.codesui.footballlatest.Utility.JsonResource;
 import com.codesui.footballlatest.ads.AppOpenManager;
 import com.codesui.footballlatest.ads.BannerManager;
 import com.codesui.footballlatest.ads.InterstitialManager;
-import com.codesui.footballlatest.ads.RewardedInterstitialManager;
 import com.codesui.footballlatest.data.Language;
 
 import org.json.JSONArray;
@@ -35,6 +34,7 @@ import java.util.List;
 public class LanguageActivity extends AppCompatActivity {
     InterstitialManager interstitialManager;
     AppOpenManager appOpenManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +57,9 @@ public class LanguageActivity extends AppCompatActivity {
         LanguagesAdapter languagesAdapter = new LanguagesAdapter(languageList);
 
         try {
+            JsonResource jsonResource = new JsonResource();
             // Load and parse the JSON file
-            String jsonData = loadJSONFromRawResource(this, R.raw.languages); // Load from raw folder
+            String jsonData = jsonResource.loadJSONFromRawResource(this, R.raw.languages); // Load from raw folder
             JSONArray jsonArray = new JSONArray(jsonData);
 
             // Access elements from the JSONArray
@@ -85,23 +86,6 @@ public class LanguageActivity extends AppCompatActivity {
         FrameLayout adViewContainer = findViewById(R.id.adViewContainer);
         BannerManager bannerManager = new BannerManager(this, LanguageActivity.this, adViewContainer);
         bannerManager.loadBanner();
-    }
-
-    // Method to load JSON file from the raw folder
-    private String loadJSONFromRawResource(Context context, int resourceId) {
-        StringBuilder stringBuilder = new StringBuilder();
-        try (InputStream inputStream = context.getResources().openRawResource(resourceId);
-             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                stringBuilder.append(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return stringBuilder.toString();
     }
 
     @Override

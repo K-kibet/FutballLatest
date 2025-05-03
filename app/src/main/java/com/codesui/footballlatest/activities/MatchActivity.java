@@ -26,6 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.codesui.footballlatest.R;
+import com.codesui.footballlatest.Utility.DateUtils;
 import com.codesui.footballlatest.ads.AppOpenManager;
 import com.codesui.footballlatest.ads.BannerManager;
 import com.codesui.footballlatest.ads.InterstitialManager;
@@ -35,11 +36,8 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TimeZone;
 
 public class MatchActivity extends AppCompatActivity {
     AppOpenManager appOpenManager;
@@ -52,7 +50,7 @@ public class MatchActivity extends AppCompatActivity {
     private ImageView homeImage, awayImage, imageLeague;
     ActionBar actionBar;
 
-    private TextView home_ball_possession,  home_shots,   home_shots_on_goal,  home_shots_off_goal, home_corner_kicks,
+    private TextView home_ball_possession, home_shots, home_shots_on_goal, home_shots_off_goal, home_corner_kicks,
             home_free_kicks, home_goal_kicks, home_offsides, home_fouls, home_saves, home_throw_ins, home_yellow_cards, home_yellow_red_cards, home_red_cards;
     private TextView away_ball_possession, away_shots, away_shots_on_goal, away_shots_off_goal, away_corner_kicks,
             away_free_kicks, away_goal_kicks, away_offsides, away_fouls, away_saves, away_throw_ins, away_yellow_cards, away_yellow_red_cards, away_red_cards;
@@ -185,7 +183,7 @@ public class MatchActivity extends AppCompatActivity {
                             actionBar.setTitle(competitionObj.optString("name", "Match Details"));
 
                             String competitionCrestUrl = competitionObj.optString("emblem", "defaultImageURL");
-                            Picasso.get().load(competitionCrestUrl).placeholder(R.drawable.ic_epl_banner).error(R.drawable.ic_epl_banner).into(imageLeague);
+                            Picasso.get().load(competitionCrestUrl).placeholder(R.drawable.image5).error(R.drawable.image5).into(imageLeague);
                         }
 
                         // Parse home team data safely
@@ -197,7 +195,7 @@ public class MatchActivity extends AppCompatActivity {
                             homeFormation.setText(homeTeamFormation);
 
                             String homeCrestUrl = homeTeamObj.optString("crest", "defaultImageURL");
-                            Picasso.get().load(homeCrestUrl).placeholder(R.drawable.ic_epl_banner).error(R.drawable.ic_epl_banner).into(homeImage);
+                            Picasso.get().load(homeCrestUrl).placeholder(R.drawable.image5).error(R.drawable.image5).into(homeImage);
                         }
 
                         // Parse away team data safely
@@ -209,20 +207,21 @@ public class MatchActivity extends AppCompatActivity {
                             awayFormation.setText(awayTeamFormation);
 
                             String awayCrestUrl = awayTeamObj.optString("crest", "defaultImageURL");
-                            Picasso.get().load(awayCrestUrl).placeholder(R.drawable.ic_epl_banner).error(R.drawable.ic_epl_banner).into(awayImage);
+                            Picasso.get().load(awayCrestUrl).placeholder(R.drawable.image5).error(R.drawable.image5).into(awayImage);
                         }
 
 
                         String status = response.optString("status", "CANCELLED");
                         JSONObject scoreObj = response.optJSONObject("score");
 
-                        if(status.equals("LIVE") || status.equals("FINISHED") || status.equals("IN_PLAY") || status.equals("PAUSED")){
+                        if (status.equals("LIVE") || status.equals("FINISHED") || status.equals("IN_PLAY") || status.equals("PAUSED")) {
 
                             String minute = response.optString("minute", "VS");
 
-                            if(status.equals("FINISHED")){
+                            if (status.equals("FINISHED")) {
                                 textResults.setText("FT");
                                 textLeague.setText(status);
+                                cardLive.setClickable(false);
                             } else {
                                 textResults.setText(minute + "'");
                             }
@@ -242,9 +241,9 @@ public class MatchActivity extends AppCompatActivity {
                             //stats.setVisibility(View.VISIBLE);
 
                             JSONObject homeStats = homeTeamObj.optJSONObject("statistics");
-                            if(homeStats != null) {
+                            if (homeStats != null) {
                                 Toast.makeText(MatchActivity.this, homeStats.toString(), Toast.LENGTH_SHORT).show();
-                               home_ball_possession.setText(homeStats.optString("ball_possession", "0"));
+                                home_ball_possession.setText(homeStats.optString("ball_possession", "0"));
                                 home_shots.setText(homeStats.optString("shots", "0"));
                                 home_shots_on_goal.setText(homeStats.optString("shots_on_goal", "0"));
                                 home_shots_off_goal.setText(homeStats.optString("shots_off_goal", "0"));
@@ -263,7 +262,7 @@ public class MatchActivity extends AppCompatActivity {
 
                             assert awayTeamObj != null;
                             JSONObject awayStats = awayTeamObj.optJSONObject("statistics");
-                            if(awayStats != null) {
+                            if (awayStats != null) {
                                 away_ball_possession.setText(awayStats.optString("ball_possession", "0"));
                                 away_shots.setText(awayStats.optString("shots", "0"));
                                 away_shots_on_goal.setText(awayStats.optString("shots_on_goal", "0"));
@@ -283,8 +282,8 @@ public class MatchActivity extends AppCompatActivity {
                         } else {
                             textResults.setText("VS");
                             //stats.setVisibility(View.GONE);
-                            if(status.equals("SCHEDULED") || status.equals("TIMED")){
-                                String formattedDate = convertDate(response.optString("utcDate", ""));
+                            if (status.equals("SCHEDULED") || status.equals("TIMED")) {
+                                String formattedDate = DateUtils.convertDate(response.optString("utcDate", ""));
                                 textLeague.setText(formattedDate);
                             } else {
                                 textLeague.setText(status);
@@ -299,9 +298,9 @@ public class MatchActivity extends AppCompatActivity {
 
                     }
                 }, error -> {
-                    Log.e("Volley Error", "Error fetching data", error);
-                    showErrorView();
-                }) {
+            Log.e("Volley Error", "Error fetching data", error);
+            showErrorView();
+        }) {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<>();
@@ -312,31 +311,6 @@ public class MatchActivity extends AppCompatActivity {
         };
         requestQueue.add(jsonObjectRequest);
     }
-
-
-
-    private String convertDate(String utcDateString) {
-        try {
-            // Define the UTC date format (input string format)
-            SimpleDateFormat utcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-            utcFormat.setTimeZone(TimeZone.getTimeZone("UTC")); // Ensure the date is parsed in UTC time zone
-
-            // Parse the UTC date string into a Date object
-            Date utcDate = utcFormat.parse(utcDateString);
-
-            // Define the output format (including both date and time)
-            SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
-            outputFormat.setTimeZone(TimeZone.getDefault()); // Use the device's local time zone for display
-
-            // Format the Date into the required format (date and time)
-            String formattedDateTime = outputFormat.format(utcDate);
-            return formattedDateTime;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return utcDateString;  // In case of an error, return the original string (or handle accordingly)
-        }
-    }
-
 
 
     private void showErrorView() {

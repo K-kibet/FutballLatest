@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_checked="true" android:color="@color/light_green"/>
-    <item android:state_checked="false" android:color="?attr/iconColor"/>
+    <item android:color="@color/light_green" android:state_checked="true" />
+    <item android:color="?attr/iconColor" android:state_checked="false" />
 
-    <item android:state_active="true" android:color="@color/light_green" />
-    <item android:state_active="false" android:color="?attr/iconColor" />
+    <item android:color="@color/light_green" android:state_active="true" />
+    <item android:color="?attr/iconColor" android:state_active="false" />
 
-    <item android:state_pressed="true" android:color="@color/light_green" />
-    <item android:state_pressed="false" android:color="?attr/iconColor" />
+    <item android:color="@color/light_green" android:state_pressed="true" />
+    <item android:color="?attr/iconColor" android:state_pressed="false" />
 
-    <item android:state_focused="true" android:color="@color/light_green" />
-    <item android:state_focused="false" android:color="?attr/iconColor" />
+    <item android:color="@color/light_green" android:state_focused="true" />
+    <item android:color="?attr/iconColor" android:state_focused="false" />
 
-    <item android:state_hovered="true" android:color="@color/light_green" />
+    <item android:color="@color/light_green" android:state_hovered="true" />
 </selector>

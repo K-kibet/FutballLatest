@@ -5,179 +5,194 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:navigationIcon="@drawable/baseline_arrow_back_24"
-            app:title="Champions League"
-            app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/baseline_arrow_back_24"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:title="Champions League" />
+
     <RelativeLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_below="@id/toolbar"
+        android:orientation="vertical"
         android:visibility="gone">
+
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="5dp"
-            app:cardPreventCornerOverlap="true"
-            android:id="@+id/info">
+            app:cardPreventCornerOverlap="true">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginVertical="5dp">
+                    android:layout_marginVertical="5dp"
+                    android:gravity="center">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
+                        android:layout_weight="1"
                         android:gravity="start"
-                        android:layout_weight="1">
+                        android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/homeTeam"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="Atletico Madrid"
+                            android:layout_weight="1"
                             android:gravity="center"
-                            android:layout_weight="1"/>
+                            android:text="Atletico Madrid" />
+
                         <ImageView
                             android:id="@+id/homeImage"
                             android:layout_width="40dp"
                             android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
                             android:padding="5dp"
-                            android:src="@drawable/ic_football"/>
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/image5" />
                     </LinearLayout>
+
                     <TextView
                         android:id="@+id/textResults"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/vs"
-                        android:textStyle="bold"
                         android:gravity="center"
+                        android:text="@string/vs"
                         android:textColor="@color/green"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
+                        android:layout_weight="1"
                         android:gravity="start"
-                        android:layout_weight="1">
+                        android:orientation="horizontal">
+
                         <ImageView
                             android:id="@+id/awayImage"
                             android:layout_width="40dp"
                             android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
                             android:padding="5dp"
-                            android:src="@drawable/ic_football"/>
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/image5" />
+
                         <TextView
                             android:id="@+id/awayTeam"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="Atletico Madrid"
+                            android:layout_weight="1"
                             android:gravity="center"
-                            android:layout_weight="1"/>
+                            android:text="Atletico Madrid" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginVertical="5dp">
+                    android:layout_marginVertical="5dp"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/homeResult"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/_2"
-                        android:textStyle="bold"
                         android:layout_weight="1"
+                        android:text="@string/_2"
                         android:textAlignment="center"
+                        android:textColor="?attr/iconColor"
                         android:textSize="20sp"
-                        android:textColor="?attr/iconColor"/>
+                        android:textStyle="bold" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="-"
-                        android:textStyle="italic"
                         android:layout_weight="1"
+                        android:text="-"
                         android:textAlignment="center"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/awayResult"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/_2"
-                        android:textStyle="bold"
                         android:layout_weight="1"
+                        android:text="@string/_2"
                         android:textAlignment="center"
+                        android:textColor="?attr/iconColor"
                         android:textSize="20sp"
-                        android:textColor="?attr/iconColor"/>
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
                     android:orientation="horizontal"
-                    android:visibility="gone"
-                    android:layout_marginVertical="5dp">
+                    android:visibility="gone">
+
                     <TextView
                         android:id="@+id/homeFormation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="4-4-2"
                         android:layout_weight="1"
+                        android:text="4-4-2"
                         android:textAlignment="center"
+                        android:textColor="?attr/iconColor"
                         android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:textColor="?attr/iconColor"/>
+                        android:textStyle="bold" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:textColor="?attr/iconColor"/>
+                        android:textColor="?attr/iconColor" />
+
                     <TextView
                         android:id="@+id/awayFormation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="4-4-2"
                         android:layout_weight="1"
+                        android:text="4-4-2"
                         android:textAlignment="center"
+                        android:textColor="?attr/iconColor"
                         android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:textColor="?attr/iconColor"/>
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardLive"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="5dp"
-                    app:cardPreventCornerOverlap="true"
                     android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="5dp">
+                    android:layout_marginVertical="5dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardPreventCornerOverlap="true">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="35dp"
+                        android:layout_height="60dp"
+                        android:gravity="center"
                         android:orientation="horizontal"
-                        android:weightSum="4"
-                        android:gravity="center">
+                        android:paddingVertical="10dp"
+                        android:weightSum="4">
 
                         <ImageView
                             android:id="@+id/imageLeague"
@@ -187,22 +202,26 @@
                             android:layout_weight="1.7"
                             android:foregroundGravity="center"
                             android:scaleType="centerInside"
-                            android:src="@mipmap/ic_launcher" />
+                            android:src="@mipmap/ic_launcher"
+                            android:background="@drawable/rounded_background"/>
+
                         <TextView
                             android:id="@+id/textLeague"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="Watch Live"
-                            android:gravity="center"
-                            android:layout_weight=".6"
                             android:layout_marginHorizontal="10dp"
-                            android:textSize="18sp"/>
+                            android:layout_weight=".6"
+                            android:gravity="center"
+                            android:text="Watch Live"
+                            android:textSize="18sp" />
+
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1.8"
+                            android:background="@drawable/rounded_background"
                             android:scaleType="centerInside"
-                            android:src="@drawable/baseline_live_tv_24"/>
+                            android:src="@drawable/baseline_live_tv_24" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
@@ -213,538 +232,574 @@
             android:layout_height="match_parent"
             android:layout_above="@id/adViewContainer"
             android:layout_below="@id/info">
+
             <LinearLayout
+                android:id="@+id/stats"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:id="@+id/stats"
-                android:visibility="gone"
-                >
+                android:visibility="gone">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/statisctics"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
+                    android:textAlignment="center"
                     android:textColor="?attr/iconColor"
-                    android:textAlignment="center"/>
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="5dp"
                     app:cardPreventCornerOverlap="true">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_marginVertical="3dp"
+                        android:orientation="horizontal"
                         android:weightSum="5">
+
                         <TextView
                             android:id="@+id/home_ball_possession"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/_2"
                             android:layout_weight="2"
+                            android:text="@string/_2"
                             android:textAlignment="center"
-                            android:textSize="20sp"
-                            android:textColor="?attr/iconColor"/>
+                            android:textColor="?attr/iconColor"
+                            android:textSize="20sp" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/ball_possession"
                             android:layout_weight="1"
+                            android:text="@string/ball_possession"
                             android:textAlignment="center"
-                            android:textSize="20sp"/>
+                            android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/away_ball_possession"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/_2"
                             android:layout_weight="2"
+                            android:text="@string/_2"
                             android:textAlignment="center"
-                            android:textSize="20sp"
                             android:textColor="?attr/iconColor"
-                            />
+                            android:textSize="20sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginVertical="3dp"
+                    android:orientation="horizontal"
                     android:weightSum="5">
+
                     <TextView
                         android:id="@+id/home_shots"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/_2"
                         android:layout_weight="2"
+                        android:text="@string/_2"
                         android:textAlignment="center"
-                        android:textSize="20sp"
-                        android:textColor="?attr/iconColor"/>
+                        android:textColor="?attr/iconColor"
+                        android:textSize="20sp" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/shots"
                         android:layout_weight="1"
+                        android:text="@string/shots"
                         android:textAlignment="center"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/away_shots"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/_2"
                         android:layout_weight="2"
+                        android:text="@string/_2"
                         android:textAlignment="center"
-                        android:textSize="20sp"
                         android:textColor="?attr/iconColor"
-                        />
+                        android:textSize="20sp" />
                 </LinearLayout>
+
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="5dp"
                     app:cardPreventCornerOverlap="true">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_marginVertical="3dp"
+                        android:orientation="horizontal"
                         android:weightSum="5">
+
                         <TextView
                             android:id="@+id/home_shots_on_goal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/_2"
                             android:layout_weight="2"
+                            android:text="@string/_2"
                             android:textAlignment="center"
-                            android:textSize="20sp"
-                            android:textColor="?attr/iconColor"/>
+                            android:textColor="?attr/iconColor"
+                            android:textSize="20sp" />
+
                         <TextView
                             android:id="@+id/away_shots_on_goal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/shots_on_goal"
                             android:layout_weight="1"
+                            android:text="@string/shots_on_goal"
                             android:textAlignment="center"
-                            android:textSize="20sp"/>
+                            android:textSize="20sp" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/_2"
                             android:layout_weight="2"
+                            android:text="@string/_2"
                             android:textAlignment="center"
-                            android:textSize="20sp"
                             android:textColor="?attr/iconColor"
-                            />
+                            android:textSize="20sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginVertical="3dp"
+                    android:orientation="horizontal"
                     android:weightSum="5">
+
                     <TextView
                         android:id="@+id/home_shots_off_goal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/_2"
                         android:layout_weight="2"
+                        android:text="@string/_2"
                         android:textAlignment="center"
-                        android:textSize="20sp"
-                        android:textColor="?attr/iconColor"/>
+                        android:textColor="?attr/iconColor"
+                        android:textSize="20sp" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/shots_off_goal"
                         android:layout_weight="1"
+                        android:text="@string/shots_off_goal"
                         android:textAlignment="center"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/away_shots_off_goal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/_2"
                         android:layout_weight="2"
+                        android:text="@string/_2"
                         android:textAlignment="center"
-                        android:textSize="20sp"
                         android:textColor="?attr/iconColor"
-                        />
+                        android:textSize="20sp" />
                 </LinearLayout>
+
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="5dp"
                     app:cardPreventCornerOverlap="true">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_marginVertical="3dp"
+                        android:orientation="horizontal"
                         android:weightSum="5">
+
                         <TextView
                             android:id="@+id/home_corner_kicks"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/_2"
                             android:layout_weight="2"
+                            android:text="@string/_2"
                             android:textAlignment="center"
-                            android:textSize="20sp"
-                            android:textColor="?attr/iconColor"/>
+                            android:textColor="?attr/iconColor"
+                            android:textSize="20sp" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/corner_kicks"
                             android:layout_weight="1"
+                            android:text="@string/corner_kicks"
                             android:textAlignment="center"
-                            android:textSize="20sp"/>
+                            android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/away_corner_kicks"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/_2"
                             android:layout_weight="2"
+                            android:text="@string/_2"
                             android:textAlignment="center"
-                            android:textSize="20sp"
                             android:textColor="?attr/iconColor"
-                            />
+                            android:textSize="20sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginVertical="3dp"
+                    android:orientation="horizontal"
                     android:weightSum="5">
+
                     <TextView
                         android:id="@+id/home_free_kicks"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/_2"
                         android:layout_weight="2"
+                        android:text="@string/_2"
                         android:textAlignment="center"
-                        android:textSize="20sp"
-                        android:textColor="?attr/iconColor"/>
+                        android:textColor="?attr/iconColor"
+                        android:textSize="20sp" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/free_kicks"
                         android:layout_weight="1"
+                        android:text="@string/free_kicks"
                         android:textAlignment="center"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/away_free_kicks"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/_2"
                         android:layout_weight="2"
+                        android:text="@string/_2"
                         android:textAlignment="center"
-                        android:textSize="20sp"
                         android:textColor="?attr/iconColor"
-                        />
+                        android:textSize="20sp" />
                 </LinearLayout>
+
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="5dp"
                     app:cardPreventCornerOverlap="true">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_marginVertical="3dp"
+                        android:orientation="horizontal"
                         android:weightSum="5">
+
                         <TextView
                             android:id="@+id/home_goal_kicks"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/_2"
                             android:layout_weight="2"
+                            android:text="@string/_2"
                             android:textAlignment="center"
-                            android:textSize="20sp"
-                            android:textColor="?attr/iconColor"/>
+                            android:textColor="?attr/iconColor"
+                            android:textSize="20sp" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/goal_kicks"
                             android:layout_weight="1"
+                            android:text="@string/goal_kicks"
                             android:textAlignment="center"
-                            android:textSize="20sp"/>
+                            android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/away_goal_kicks"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/_2"
                             android:layout_weight="2"
+                            android:text="@string/_2"
                             android:textAlignment="center"
-                            android:textSize="20sp"
                             android:textColor="?attr/iconColor"
-                            />
+                            android:textSize="20sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginVertical="3dp"
+                    android:orientation="horizontal"
                     android:weightSum="5">
+
                     <TextView
                         android:id="@+id/home_offsides"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/_2"
                         android:layout_weight="2"
+                        android:text="@string/_2"
                         android:textAlignment="center"
-                        android:textSize="20sp"
-                        android:textColor="?attr/iconColor"/>
+                        android:textColor="?attr/iconColor"
+                        android:textSize="20sp" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/offsides"
                         android:layout_weight="1"
+                        android:text="@string/offsides"
                         android:textAlignment="center"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/away_offsides"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/_2"
                         android:layout_weight="2"
+                        android:text="@string/_2"
                         android:textAlignment="center"
-                        android:textSize="20sp"
                         android:textColor="?attr/iconColor"
-                        />
+                        android:textSize="20sp" />
                 </LinearLayout>
+
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="5dp"
                     app:cardPreventCornerOverlap="true">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_marginVertical="3dp"
+                        android:orientation="horizontal"
                         android:weightSum="5">
+
                         <TextView
                             android:id="@+id/home_fouls"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/_2"
                             android:layout_weight="2"
+                            android:text="@string/_2"
                             android:textAlignment="center"
-                            android:textSize="20sp"
-                            android:textColor="?attr/iconColor"/>
+                            android:textColor="?attr/iconColor"
+                            android:textSize="20sp" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/fouls"
                             android:layout_weight="1"
+                            android:text="@string/fouls"
                             android:textAlignment="center"
-                            android:textSize="20sp"/>
+                            android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/away_fouls"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/_2"
                             android:layout_weight="2"
+                            android:text="@string/_2"
                             android:textAlignment="center"
-                            android:textSize="20sp"
                             android:textColor="?attr/iconColor"
-                            />
+                            android:textSize="20sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginVertical="3dp"
+                    android:orientation="horizontal"
                     android:weightSum="5">
+
                     <TextView
                         android:id="@+id/home_saves"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/_2"
                         android:layout_weight="2"
+                        android:text="@string/_2"
                         android:textAlignment="center"
-                        android:textSize="20sp"
-                        android:textColor="?attr/iconColor"/>
+                        android:textColor="?attr/iconColor"
+                        android:textSize="20sp" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/saves"
                         android:layout_weight="1"
+                        android:text="@string/saves"
                         android:textAlignment="center"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/away_saves"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/_2"
                         android:layout_weight="2"
+                        android:text="@string/_2"
                         android:textAlignment="center"
-                        android:textSize="20sp"
                         android:textColor="?attr/iconColor"
-                        />
+                        android:textSize="20sp" />
                 </LinearLayout>
+
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="5dp"
                     app:cardPreventCornerOverlap="true">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_marginVertical="3dp"
+                        android:orientation="horizontal"
                         android:weightSum="5">
+
                         <TextView
                             android:id="@+id/home_throw_ins"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/_2"
                             android:layout_weight="2"
+                            android:text="@string/_2"
                             android:textAlignment="center"
-                            android:textSize="20sp"
-                            android:textColor="?attr/iconColor"/>
+                            android:textColor="?attr/iconColor"
+                            android:textSize="20sp" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/throw_ins"
                             android:layout_weight="1"
+                            android:text="@string/throw_ins"
                             android:textAlignment="center"
-                            android:textSize="20sp"/>
+                            android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/away_throw_ins"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/_2"
                             android:layout_weight="2"
+                            android:text="@string/_2"
                             android:textAlignment="center"
-                            android:textSize="20sp"
                             android:textColor="?attr/iconColor"
-                            />
+                            android:textSize="20sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginVertical="3dp"
+                    android:orientation="horizontal"
                     android:weightSum="5">
+
                     <TextView
                         android:id="@+id/home_yellow_cards"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/_2"
                         android:layout_weight="2"
+                        android:text="@string/_2"
                         android:textAlignment="center"
-                        android:textSize="20sp"
-                        android:textColor="?attr/iconColor"/>
+                        android:textColor="?attr/iconColor"
+                        android:textSize="20sp" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/yellow_cards"
                         android:layout_weight="1"
+                        android:text="@string/yellow_cards"
                         android:textAlignment="center"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/away_yellow_cards"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/_2"
                         android:layout_weight="2"
+                        android:text="@string/_2"
                         android:textAlignment="center"
-                        android:textSize="20sp"
                         android:textColor="?attr/iconColor"
-                        />
+                        android:textSize="20sp" />
                 </LinearLayout>
+
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="5dp"
                     app:cardPreventCornerOverlap="true">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_marginVertical="3dp"
+                        android:orientation="horizontal"
                         android:weightSum="5">
+
                         <TextView
                             android:id="@+id/home_yellow_red_cards"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/_2"
                             android:layout_weight="2"
+                            android:text="@string/_2"
                             android:textAlignment="center"
-                            android:textSize="20sp"
-                            android:textColor="?attr/iconColor"/>
+                            android:textColor="?attr/iconColor"
+                            android:textSize="20sp" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/yellow_red_cards"
                             android:layout_weight="1"
+                            android:text="@string/yellow_red_cards"
                             android:textAlignment="center"
-                            android:textSize="20sp"/>
+                            android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/away_yellow_red_cards"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/_2"
                             android:layout_weight="2"
+                            android:text="@string/_2"
                             android:textAlignment="center"
-                            android:textSize="20sp"
                             android:textColor="?attr/iconColor"
-                            />
+                            android:textSize="20sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginVertical="3dp"
+                    android:orientation="horizontal"
                     android:weightSum="5">
+
                     <TextView
                         android:id="@+id/home_red_cards"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/_2"
                         android:layout_weight="2"
+                        android:text="@string/_2"
                         android:textAlignment="center"
-                        android:textSize="20sp"
-                        android:textColor="?attr/iconColor"/>
+                        android:textColor="?attr/iconColor"
+                        android:textSize="20sp" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/red_cards"
                         android:layout_weight="1"
+                        android:text="@string/red_cards"
                         android:textAlignment="center"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/away_red_cards"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/_2"
                         android:layout_weight="2"
+                        android:text="@string/_2"
                         android:textAlignment="center"
-                        android:textSize="20sp"
                         android:textColor="?attr/iconColor"
-                        />
+                        android:textSize="20sp" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
@@ -753,18 +808,20 @@
             android:id="@+id/adViewContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true" />
     </RelativeLayout>
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_margin="150dp" />
+
     <include
         android:id="@+id/emptyView"
+        layout="@layout/empty_screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        layout="@layout/empty_screen"
         android:layout_below="@id/toolbar"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 </RelativeLayout>

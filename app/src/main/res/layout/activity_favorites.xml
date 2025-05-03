@@ -5,22 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.FavoritesActivity">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:title="Favorite Teams"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        app:title="Favorite Teams" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_favorite"
-        android:layout_below="@id/toolbar"
         android:layout_above="@id/adViewContainer"
-        android:paddingHorizontal="8dp"/>
+        android:layout_below="@id/toolbar"
+        tools:listitem="@layout/item_favorite" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="50dp"
@@ -30,21 +32,23 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
-        android:visibility="gone"/>
+        android:layout_margin="150dp"/>
+
     <TextView
         android:id="@+id/textEmpty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:gravity="center"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
+        android:gravity="center"
         android:text="@string/no_teams_found"
-        android:visibility="gone"/>
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
     <FrameLayout
         android:id="@+id/adViewContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>

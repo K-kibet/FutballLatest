@@ -29,7 +29,7 @@ public class FixturesFragment extends Fragment {
     ProgressBar progressBar;
     DateAdapter dateAdapter;
     ArrayList<DateModel> dateList;
-    String currentSelecteddate;//yyyy-MM-dd
+    String currentSelectedDate;//yyyy-MM-dd
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,27 +52,31 @@ public class FixturesFragment extends Fragment {
         // Set today as the default selected date (index 3)
         Date today = dateList.get(3).getFullDate();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        currentSelecteddate = formatter.format(today);
+        currentSelectedDate = formatter.format(today);
 
         // Initialize adapter with selected position = 3
         dateAdapter = new DateAdapter(dateList, 3); // Pass default selected index
         dateRecyclerView.setAdapter(dateAdapter);
         dateRecyclerView.scrollToPosition(3); // Center today if needed
 
-        String url = String.format("https://api.football-data.org/v4/matches/?date=%s", currentSelecteddate);
+        String url = String.format("https://api.football-data.org/v4/matches/?date=%s", currentSelectedDate);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 
+        RecyclerView leagueFilterRecycler = view.findViewById(R.id.leagueFilterRecycler);
+
         recyclerView.setLayoutManager(linearLayoutManager);
+        //leagueFilterRecycler.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+
         Api api = new Api(getActivity(), getContext());
-        api.loadMatches(url, recyclerView, progressBar, textEmpty);
+        api.loadMatches(url, recyclerView, leagueFilterRecycler,progressBar, textEmpty);
 
 
         // Listen to date change
         dateAdapter.setOnDateSelectedListener(date -> {
-            currentSelecteddate = formatter.format(date);
-            String newUrl = String.format("https://api.football-data.org/v4/matches/?date=%s", currentSelecteddate);
-            api.loadMatches(newUrl, recyclerView, progressBar, textEmpty);
+            currentSelectedDate = formatter.format(date);
+            String newUrl = String.format("https://api.football-data.org/v4/matches/?date=%s", currentSelectedDate);
+            api.loadMatches(newUrl, recyclerView, leagueFilterRecycler,progressBar, textEmpty);
         });
 
 

@@ -17,13 +17,13 @@ import com.codesui.footballlatest.R;
 import com.codesui.footballlatest.Utility.Api;
 import com.codesui.footballlatest.ads.AppOpenManager;
 import com.codesui.footballlatest.ads.BannerManager;
-import com.codesui.footballlatest.ads.InterstitialManager;
 import com.codesui.footballlatest.ads.RewardedInterstitialManager;
 
 public class FavoritesActivity extends AppCompatActivity {
     AppOpenManager appOpenManager;
     RewardedInterstitialManager rewardedInterstitialManager;
     ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,12 +76,6 @@ public class FavoritesActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        appOpenManager.showAdIfAvailable(FavoritesActivity.this);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
         appOpenManager.showAdIfAvailable(FavoritesActivity.this);
     }
 }

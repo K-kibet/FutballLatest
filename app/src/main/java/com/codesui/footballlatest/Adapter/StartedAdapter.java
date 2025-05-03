@@ -37,7 +37,7 @@ public class StartedAdapter extends RecyclerView.Adapter<StartedAdapter.ViewHold
 
     @Override
     public StartedAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.mycard3, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_started, parent, false);
         return new ViewHolder(view);
     }
 

@@ -3,66 +3,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/image4"
     android:gravity="center"
-    android:background="@drawable/w1"
     tools:context=".activities.SplashActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentTop="true"
         android:layout_above="@id/bottomContainer"
-        android:gravity="center">
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
         <ImageView
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher_foreground"/>
+            android:src="@mipmap/ic_launcher_foreground" />
 
         <TextView
-            android:text="Live Football Score"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:layout_marginVertical="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:text="Your ultimate companion for real-time football scores,
-match updates, and in-depth analysis!"
-            android:textSize="14sp"
-            android:textAlignment="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="48dp"/>
+            android:layout_marginVertical="8dp"
+            android:text="Live Football Score"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="48dp"
+            android:text="Your ultimate companion for real-time football scores,
+match updates, and in-depth analysis!"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/bottomContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
         android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="24dp"
         android:layout_marginVertical="48dp"
-        android:layout_marginHorizontal="24dp">
+        android:gravity="center"
+        android:orientation="vertical">
+
         <TextView
-            android:text="This Action May Contain Ads..."
-            android:textSize="14sp"
-            android:textAlignment="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            android:text="This Action May Contain Ads..."
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
         <ProgressBar
             android:id="@+id/horizontal_progress"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="3dp"
-            android:progress="0"
-            android:max="100"
             android:indeterminate="false"
-            android:progressDrawable="@android:drawable/progress_horizontal"/>
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/progress_custom" />
     </LinearLayout>
 
 </RelativeLayout>

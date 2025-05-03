@@ -7,9 +7,11 @@ import android.net.Uri;
 
 public class RateManager {
     Context context;
+
     public RateManager(Context context) {
         this.context = context;
     }
+
     public void rate() {
         try {
             Intent rateIntent = rateIntentForUrl("market://details");

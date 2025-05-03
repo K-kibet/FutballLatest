@@ -4,12 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".competition.StandingsFragment">
+
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="5">
+
         <TextView
             android:id="@+id/text_team_name"
             android:layout_width="match_parent"
@@ -18,80 +20,88 @@
             android:gravity="center"
             android:text="Team"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginVertical="8dp"
             android:layout_gravity="center_vertical"
-            android:weightSum="6"
-            android:layout_weight="2.5">
+            android:layout_marginVertical="8dp"
+            android:layout_weight="2.5"
+            android:orientation="horizontal"
+            android:weightSum="6">
+
             <TextView
                 android:id="@+id/text_team_played"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textAlignment="center"
                 android:text="PL"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:textAlignment="center"
-                android:text="GD"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textAlignment="center"
-                android:text="W"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textAlignment="center"
-                android:text="D"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textAlignment="center"
-                android:text="L"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:text="GD"
                 android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="W"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="D"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="L"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="P"
+                android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
         </LinearLayout>
     </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"
         android:layout_below="@id/header"
         android:layout_alignParentBottom="true"
-        tools:listitem="@layout/layout_standings" />
+        android:scrollbars="vertical"
+        tools:listitem="@layout/item_standing" />
+
     <TextView
         android:id="@+id/textEmpty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:gravity="center"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
+        android:gravity="center"
         android:text="@string/no_standings_found"
-        android:visibility="gone"/>
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="50dp"
@@ -100,5 +110,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:layout_margin="150dp" />
 </RelativeLayout>

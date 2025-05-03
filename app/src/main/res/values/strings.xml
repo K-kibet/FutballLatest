@@ -11,7 +11,6 @@
     <string name="error_matches">An Error Occurred While Trying To Fetch Fixtures! Try Again Later</string>
 
     <string name="no_live_matches">No Live Matches Found!</string>
-    <string name="error_live_matches">An Error Occurred While Trying To Fetch Live Matches! Try Again Later</string>
 
 
     <string name="no_leagues_found"></string>
@@ -43,7 +42,6 @@
     <string name="terms_of_service">Terms of Service</string>
 
     <string name="slogan">Football Livescores</string>
-    <string name="button_start">GET STARTED</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="corner_kicks">CORNER KICKS</string>
     <string name="free_kicks">FREE KICKS</string>
@@ -66,4 +64,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="welcome_message">Welcome to %1$s!</string>
+    <string name="ft">FT</string>
+    <string name="continue_string">Continue</string>
+    <string name="next">Next</string>
 </resources>

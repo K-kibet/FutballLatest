@@ -18,13 +18,14 @@ import java.util.List;
 
 public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.ViewHolder> {
     private final List<Player> playerList;
+
     public PlayersAdapter(List<Player> list) {
         this.playerList = list;
     }
 
     @NonNull
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.topscorer_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_topscorer, parent, false);
         return new ViewHolder(view);
     }
 
@@ -33,7 +34,7 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.ViewHold
         holder.position.setText(String.valueOf(position + 1));
         holder.name.setText(player.getName());
         holder.goals.setText(player.getGoals());
-        Picasso.get().load(player.getTeamImage()).placeholder(R.drawable.ic_football).error(R.drawable.ic_football).into(holder.team);
+        Picasso.get().load(player.getTeamImage()).placeholder(R.drawable.image5).error(R.drawable.image5).into(holder.team);
     }
 
     public int getItemCount() {
@@ -46,6 +47,7 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.ViewHold
         private final TextView name;
         private final TextView goals;
         private final ImageView team;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.position = itemView.findViewById(R.id.position);

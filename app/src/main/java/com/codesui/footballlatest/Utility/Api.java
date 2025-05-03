@@ -7,86 +7,54 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.codesui.footballlatest.Adapter.FixturesAdapter;
-import com.codesui.footballlatest.Adapter.HomeLeagueAdapter;
+import com.codesui.footballlatest.Adapter.LeagueFilterAdapter;
+import com.codesui.footballlatest.Adapter.LeagueFixturesAdapter;
 import com.codesui.footballlatest.Adapter.LeaguesAdapter;
 import com.codesui.footballlatest.Adapter.PlayersAdapter;
 import com.codesui.footballlatest.Adapter.StandingsAdapter;
 import com.codesui.footballlatest.Adapter.TeamsAdapter;
-import com.codesui.footballlatest.MainActivity;
 import com.codesui.footballlatest.R;
-import com.codesui.footballlatest.data.HomeLeague;
+import com.codesui.footballlatest.activities.LeagueActivity;
+import com.codesui.footballlatest.data.FilterLeague;
+import com.codesui.footballlatest.data.FixtureItem;
 import com.codesui.footballlatest.data.League;
 import com.codesui.footballlatest.data.Match;
 import com.codesui.footballlatest.data.Player;
 import com.codesui.footballlatest.data.Standing;
 import com.codesui.footballlatest.data.Team;
-import com.codesui.footballlatest.fragments.LivescoresFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Api {
     Activity activity;
     Context context;
+
     public Api(Activity activity, Context context) {
         this.activity = activity;
         this.context = context;
     }
 
-    public void loadHomeCompetitions (String url, LivescoresFragment livescoresFragment, String competitionId, RecyclerView recyclerView) {
-
-        List<HomeLeague> homeLeagueList = new ArrayList<>();
-        //public HomeLeagueAdapter(Context context, LivescoresFragment fragment, List<HomeLeague> homeLeagues, String selectedCompetitionId, RecyclerView recyclerView) {
-        HomeLeagueAdapter homeLeagueAdapter = new HomeLeagueAdapter(context, livescoresFragment, homeLeagueList, competitionId,recyclerView);
-        recyclerView.setAdapter(homeLeagueAdapter);
-
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        @SuppressLint("NotifyDataSetChanged") JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, response -> {
-                    try {
-                        JSONArray jsonArray = response.getJSONArray("competitions");
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            HomeLeague item = new HomeLeague(
-                                    jsonArray.getJSONObject(i).getString("name"),
-                                    jsonArray.getJSONObject(i).getString("id"),
-                                    jsonArray.getJSONObject(i).getString("emblem"), false);
-                            homeLeagueList.add(item);
-                        }
-                        homeLeagueAdapter.notifyDataSetChanged();
-
-                    } catch (JSONException e) {
-                        //alertDialog.show();
-                    }
-                }, error -> {
-                    //alertDialog.show();
-                }){
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String>  params = new HashMap<>();
-                params.put("X-Auth-Token", "6f290c7d3caf4bb69f07dacaf7273267");
-                params.put("Accept", "application/json");
-                return params;
-            }
-        };
-        requestQueue.add(jsonObjectRequest);
-    }
-
-    public void loadCompetitions (String url, RecyclerView recyclerView, ProgressBar progressBar, TextView textEmpty) {
+    public void loadCompetitions(String url, RecyclerView recyclerView, ProgressBar progressBar, TextView textEmpty) {
         List<League> leagueList = new ArrayList<>();
         LeaguesAdapter leaguesAdapter = new LeaguesAdapter(context, activity, leagueList);
         recyclerView.setAdapter(leaguesAdapter);
@@ -100,14 +68,14 @@ public class Api {
                             League item = new League(
                                     jsonArray.getJSONObject(i).getJSONObject("area").getString("name"),
                                     jsonArray.getJSONObject(i).getString("name"),
-                                    jsonArray.getJSONObject(i).getString("id"),
+                                    jsonArray.getJSONObject(i).getInt("id"),
                                     jsonArray.getJSONObject(i).getString("code"),
                                     jsonArray.getJSONObject(i).getString("emblem"));
                             leagueList.add(item);
                         }
                         leaguesAdapter.notifyDataSetChanged();
                         progressBar.setVisibility(View.GONE);
-                        if(leagueList.isEmpty()) {
+                        if (leagueList.isEmpty()) {
                             textEmpty.setText(R.string.no_leagues_found);
                             textEmpty.setVisibility(View.VISIBLE);
                         } else {
@@ -115,7 +83,7 @@ public class Api {
                         }
                     } catch (JSONException e) {
                         progressBar.setVisibility(View.GONE);
-                        if(leagueList.isEmpty()) {
+                        if (leagueList.isEmpty()) {
                             textEmpty.setText(R.string.error_leagues);
                             textEmpty.setVisibility(View.VISIBLE);
                         }
@@ -123,14 +91,14 @@ public class Api {
                 }, error -> {
                     //alertDialog.show();
                     progressBar.setVisibility(View.GONE);
-                    if(leagueList.isEmpty()) {
+                    if (leagueList.isEmpty()) {
                         textEmpty.setText(R.string.error_leagues);
                         textEmpty.setVisibility(View.VISIBLE);
                     }
-                }){
+                }) {
             @Override
             public Map<String, String> getHeaders() {
-                Map<String, String>  params = new HashMap<>();
+                Map<String, String> params = new HashMap<>();
                 params.put("X-Auth-Token", "6f290c7d3caf4bb69f07dacaf7273267");
                 params.put("Accept", "application/json");
                 return params;
@@ -147,6 +115,8 @@ public class Api {
         recyclerView.setAdapter(teamsAdapter);
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+
         @SuppressLint("NotifyDataSetChanged") JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, response -> {
                     try {
@@ -160,7 +130,7 @@ public class Api {
                         }
                         teamsAdapter.notifyDataSetChanged();
                         progressBar.setVisibility(View.GONE);
-                        if(teamList.isEmpty()) {
+                        if (teamList.isEmpty()) {
                             textEmpty.setText(R.string.no_teams_found);
                             textEmpty.setVisibility(View.VISIBLE);
                         } else {
@@ -170,16 +140,17 @@ public class Api {
                     } catch (JSONException e) {
                         //dialogManager.showDialog();
                         progressBar.setVisibility(View.GONE);
-                        if(teamList.isEmpty()) {
-                            textEmpty.setText(R.string.error_teams);
+                        if (teamList.isEmpty()) {
+                            textEmpty.setText(R.string.no_teams_found);
                             textEmpty.setVisibility(View.VISIBLE);
                         }
                     }
                 }, error -> {
                     //dialogManager.showDialog();
                     progressBar.setVisibility(View.GONE);
-                    if(teamList.isEmpty()) {
+                    if (teamList.isEmpty()) {
                         textEmpty.setText(R.string.error_teams);
+                        //textEmpty.setText(competitionId);
                         textEmpty.setVisibility(View.VISIBLE);
                     }
                 }) {
@@ -222,7 +193,7 @@ public class Api {
                         }
                         standingsAdapter.notifyDataSetChanged();
                         progressBar.setVisibility(View.GONE);
-                        if(standingList.isEmpty()) {
+                        if (standingList.isEmpty()) {
                             textEmpty.setText(R.string.no_standings_found);
                             textEmpty.setVisibility(View.VISIBLE);
                         } else {
@@ -231,19 +202,19 @@ public class Api {
                     } catch (JSONException e) {
                         //dialogManager.showDialog();
                         progressBar.setVisibility(View.GONE);
-                        if(standingList.isEmpty()) {
+                        if (standingList.isEmpty()) {
                             textEmpty.setText(R.string.error_standings);
                             textEmpty.setVisibility(View.VISIBLE);
                         }
                     }
-                }, error ->{
+                }, error -> {
                     //dialogManager.showDialog();
                     progressBar.setVisibility(View.GONE);
-                    if(standingList.isEmpty()) {
+                    if (standingList.isEmpty()) {
                         textEmpty.setText(R.string.error_standings);
                         textEmpty.setVisibility(View.VISIBLE);
                     }
-                } ) {
+                }) {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<>();
@@ -284,7 +255,7 @@ public class Api {
                         }
                         playersAdapter.notifyDataSetChanged();
                         progressBar.setVisibility(View.GONE);
-                        if(playerList.isEmpty()) {
+                        if (playerList.isEmpty()) {
                             textEmpty.setText(R.string.no_topscoreres_found);
                             textEmpty.setVisibility(View.VISIBLE);
                         } else {
@@ -294,14 +265,14 @@ public class Api {
                     } catch (JSONException e) {
                         e.printStackTrace();  // Log the error
                         progressBar.setVisibility(View.GONE);
-                        if(playerList.isEmpty()) {
+                        if (playerList.isEmpty()) {
                             textEmpty.setText(R.string.error_topscorers);
                             textEmpty.setVisibility(View.VISIBLE);
                         }
                     }
                 }, error -> {
                     progressBar.setVisibility(View.GONE);
-                    if(playerList.isEmpty()) {
+                    if (playerList.isEmpty()) {
                         textEmpty.setText(R.string.error_topscorers);
                         textEmpty.setVisibility(View.VISIBLE);
                     }
@@ -321,9 +292,10 @@ public class Api {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void loadMatches(String url, RecyclerView recyclerView, ProgressBar progressBar, TextView textEmpty) {
+
+    public void loadMatches(String url, RecyclerView recyclerView, RecyclerView leagueFilterRecycler, ProgressBar progressBar, TextView textEmpty) {
         List<Match> matchList = new ArrayList<>();
-        FixturesAdapter fixturesAdapter = new FixturesAdapter(context, activity, matchList);
+        FixturesAdapter fixturesAdapter = new FixturesAdapter(context, activity, new ArrayList<>());
         recyclerView.setAdapter(fixturesAdapter);
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -335,11 +307,14 @@ public class Api {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             Match match = new Match(
                                     jsonObject.getString("id"),
+                                    jsonObject.getJSONObject("competition").getInt("id"),
+                                    jsonObject.getJSONObject("competition").getString("code"),
+                                    jsonObject.getJSONObject("competition").getString("name"),
+                                    jsonObject.getJSONObject("competition").optString("emblem", null),
                                     jsonObject.getJSONObject("homeTeam").getString("shortName"),
                                     jsonObject.getJSONObject("awayTeam").getString("shortName"),
                                     jsonObject.getJSONObject("homeTeam").getString("crest"),
                                     jsonObject.getJSONObject("awayTeam").getString("crest"),
-                                    jsonObject.getJSONObject("competition").getString("emblem"),
                                     jsonObject.getJSONObject("score").getJSONObject("fullTime").getString("home"),
                                     jsonObject.getJSONObject("score").getJSONObject("fullTime").getString("away"),
                                     jsonObject.getString("utcDate"), jsonObject.getString("status"));
@@ -350,9 +325,63 @@ public class Api {
 
                             matchList.add(match);
                         }
-                        fixturesAdapter.notifyDataSetChanged();
+
+                        // Sort by priority leagues
+                        List<Integer> priorityLeagueIds = Arrays.asList(2000, 2001, 2018, 2021, 2016, 2015, 2014, 2002, 2019);
+                        Collections.sort(matchList, (m1, m2) -> {
+                            int i1 = priorityLeagueIds.indexOf(m1.getLeagueId());
+                            int i2 = priorityLeagueIds.indexOf(m2.getLeagueId());
+
+                            if (i1 != -1 && i2 != -1) return Integer.compare(i1, i2);
+                            if (i1 != -1) return -1;
+                            if (i2 != -1) return 1;
+                            return m1.getLeagueName().compareTo(m2.getLeagueName());
+                        });
+
+
+// Build a unique list of leagues from matches
+                        Set<Integer> seenLeagueIds = new HashSet<>();
+                        List<FilterLeague> leagueList = new ArrayList<>();
+
+// Add "All Leagues" as the first item
+                        leagueList.add(new FilterLeague(-1, "All Leagues", null));
+
+                        for (Match match : matchList) {
+                            if (!seenLeagueIds.contains(match.getLeagueId())) {
+                                leagueList.add(new FilterLeague(
+                                        match.getLeagueId(),
+                                        match.getLeagueName(),
+                                        match.getLeagueLogo()
+                                ));
+                                seenLeagueIds.add(match.getLeagueId());
+                            }
+                        }
+
+// Set up horizontal RecyclerView
+                        LeagueFilterAdapter leagueFilterAdapter = new LeagueFilterAdapter(leagueList, selectedLeagueId -> {
+                            List<Match> filtered = selectedLeagueId == -1
+                                    ? matchList
+                                    : matchList.stream()
+                                    .filter(m -> m.getLeagueId() == selectedLeagueId)
+                                    .collect(Collectors.toList());
+
+                            List<FixtureItem> groupedFiltered = FixturesAdapter.groupMatchesByLeague(filtered);
+                            fixturesAdapter.updateData(groupedFiltered);
+                        });
+
+                        leagueFilterRecycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+                        leagueFilterRecycler.setAdapter(leagueFilterAdapter);
+
+
+                        // Group and update adapter
+                        List<FixtureItem> groupedList = FixturesAdapter.groupMatchesByLeague(matchList);
+                        fixturesAdapter.updateData(groupedList);
+
                         progressBar.setVisibility(View.GONE);
-                        if(matchList.isEmpty()) {
+                        textEmpty.setVisibility(groupedList.isEmpty() ? View.VISIBLE : View.GONE);
+                        textEmpty.setText(R.string.no_matches_found);
+
+                        if (matchList.isEmpty()) {
                             textEmpty.setText(R.string.no_matches_found);
                             textEmpty.setVisibility(View.VISIBLE);
                         } else {
@@ -361,14 +390,82 @@ public class Api {
 
                     } catch (JSONException e) {
                         progressBar.setVisibility(View.GONE);
-                        if(matchList.isEmpty()) {
+                        if (matchList.isEmpty()) {
                             textEmpty.setText(R.string.error_matches);
                             textEmpty.setVisibility(View.VISIBLE);
                         }
                     }
                 }, error -> {
                     progressBar.setVisibility(View.GONE);
-                    if(matchList.isEmpty()) {
+                    if (matchList.isEmpty()) {
+                        textEmpty.setText(R.string.error_matches);
+                        textEmpty.setVisibility(View.VISIBLE);
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("X-Auth-Token", "6f290c7d3caf4bb69f07dacaf7273267");
+                params.put("X-Unfold-Goals", "true");
+                return params;
+            }
+        };
+        progressBar.setVisibility(View.VISIBLE);
+        textEmpty.setVisibility(View.GONE);
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    public void loadLeagueMatches(String url, RecyclerView recyclerView, ProgressBar progressBar, TextView textEmpty) {
+        List<Match> matchList = new ArrayList<>();
+        LeagueFixturesAdapter leagueFixturesAdapter = new LeagueFixturesAdapter(context, activity, matchList);
+        recyclerView.setAdapter(leagueFixturesAdapter);
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        @SuppressLint("NotifyDataSetChanged") JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, response -> {
+                    try {
+                        JSONArray jsonArray = response.getJSONArray("matches");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            Match match = new Match(
+                                    jsonObject.getString("id"),
+                                    jsonObject.getJSONObject("competition").getInt("id"),
+                                    jsonObject.getJSONObject("competition").getString("code"),
+                                    jsonObject.getJSONObject("competition").getString("name"),
+                                    jsonObject.getJSONObject("competition").optString("emblem", ""),
+                                    jsonObject.getJSONObject("homeTeam").getString("shortName"),
+                                    jsonObject.getJSONObject("awayTeam").getString("shortName"),
+                                    jsonObject.getJSONObject("homeTeam").getString("crest"),
+                                    jsonObject.getJSONObject("awayTeam").getString("crest"),
+                                    jsonObject.getJSONObject("score").getJSONObject("fullTime").getString("home"),
+                                    jsonObject.getJSONObject("score").getJSONObject("fullTime").getString("away"),
+                                    jsonObject.getString("utcDate"), jsonObject.getString("status"));
+                            if (jsonObject.getJSONObject("score").getJSONObject("fullTime").getString("home").equals("null")) {
+                                match.setHomeScore("?");
+                                match.setAwayScore("?");
+                            }
+
+                            matchList.add(match);
+                        }
+                        leagueFixturesAdapter.notifyDataSetChanged();
+                        progressBar.setVisibility(View.GONE);
+                        if (matchList.isEmpty()) {
+                            textEmpty.setText(R.string.no_matches_found);
+                            textEmpty.setVisibility(View.VISIBLE);
+                        } else {
+                            textEmpty.setVisibility(View.GONE); // Hide emptyText if data is present
+                        }
+
+                    } catch (JSONException e) {
+                        progressBar.setVisibility(View.GONE);
+                        if (matchList.isEmpty()) {
+                            textEmpty.setText(R.string.error_matches);
+                            textEmpty.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }, error -> {
+                    progressBar.setVisibility(View.GONE);
+                    if (matchList.isEmpty()) {
                         textEmpty.setText(R.string.error_matches);
                         textEmpty.setVisibility(View.VISIBLE);
                     }

@@ -8,46 +8,49 @@
     android:fitsSystemWindows="true"
     tools:context=".MainActivity"
     tools:openDrawer="start">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:iconTint="@color/white"
-            app:titleTextColor="@color/white"
-            app:title="Fixtures"
-            app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            />
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:title="Fixtures"
+            app:titleTextColor="@color/white" />
+
         <FrameLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/toolbar"
-            android:layout_above="@id/adViewContainer"/>
+            android:layout_above="@id/adViewContainer"
+            android:layout_below="@id/toolbar" />
+
         <FrameLayout
             android:id="@+id/adViewContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/bottomNavigationView"/>
+            android:layout_above="@id/bottomNavigationView" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            app:menu="@menu/bottom_nav_menu"
+            android:background="@drawable/bottom_nav_background"
+            app:itemHorizontalTranslationEnabled="true"
+            app:itemIconTint="@drawable/item_selector"
             app:itemTextColor="@drawable/item_selector"
             app:labelVisibilityMode="labeled"
-            android:background="@drawable/bottom_nav_background"
-            app:itemIconTint="@drawable/item_selector"
-            app:itemHorizontalTranslationEnabled="true"/>
+            app:menu="@menu/bottom_nav_menu" />
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -55,12 +58,12 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/nav_head"
-        app:menu="@menu/drawer_menu"
         android:background="?attr/drawerBackground"
-        app:itemVerticalPadding="10dp"
-        app:itemTextColor="@color/drawer_item_text_color"
-        app:itemIconTint="@color/drawer_item_text_color"
+        app:headerLayout="@layout/nav_head"
         app:itemBackground="@drawable/drawer_item_selector"
-        app:theme="@style/Theme.NavigationDrawer"/>
+        app:itemIconTint="@color/drawer_item_text_color"
+        app:itemTextColor="@color/drawer_item_text_color"
+        app:itemVerticalPadding="10dp"
+        app:menu="@menu/drawer_menu"
+        app:theme="@style/Theme.NavigationDrawer" />
 </androidx.drawerlayout.widget.DrawerLayout>

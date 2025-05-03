@@ -19,6 +19,7 @@ import com.codesui.footballlatest.activities.LeagueActivity;
 
 public class StandingsFragment extends Fragment {
     ProgressBar progressBar;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class StandingsFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
         TextView textEmpty = view.findViewById(R.id.textEmpty);
         LeagueActivity competitionActivity = (LeagueActivity) getActivity();
-        String competitionId = competitionActivity.competitionId;
+        int competitionId = competitionActivity.competitionId;
 
         String url = "https://api.football-data.org/v4/competitions/" + competitionId + "/standings";
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);

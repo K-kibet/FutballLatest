@@ -5,9 +5,11 @@ import android.content.Intent;
 
 public class ShareManager {
     Context context;
+
     public ShareManager(Context context) {
         this.context = context;
     }
+
     public void shareApp() {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);

@@ -30,7 +30,8 @@ public class MatchesFragment extends Fragment {
     RecyclerView dateRecyclerView;
     DateAdapter dateAdapter;
     ArrayList<DateModel> dateList;
-    String currentSelecteddate;//yyyy-MM-dd
+    String currentSelectedDate;//yyyy-MM-dd
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class MatchesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
 
         progressBar = view.findViewById(R.id.progressBar);
         TextView textEmpty = view.findViewById(R.id.textEmpty);
@@ -52,7 +54,7 @@ public class MatchesFragment extends Fragment {
         // Set today as the default selected date (index 3)
         Date today = dateList.get(3).getFullDate();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        currentSelecteddate = formatter.format(today);
+        currentSelectedDate = formatter.format(today);
 
         // Initialize adapter with selected position = 3
         dateAdapter = new DateAdapter(dateList, 3); // Pass default selected index
@@ -60,23 +62,35 @@ public class MatchesFragment extends Fragment {
         dateRecyclerView.scrollToPosition(3); // Center today if needed
 
 
-        LeagueActivity competitionActivity = (LeagueActivity) getActivity();
-        String competitionId = competitionActivity.competitionId;
+        //LeagueActivity competitionActivity = (LeagueActivity) getActivity();
+        //int competitionId = competitionActivity.competitionId;
 
+        final int competitionId;
 
-        String url = String.format("https://api.football-data.org/v4/competitions/%s/matches/?dateFrom=%s&dateTo=%s", competitionId, currentSelecteddate, currentSelecteddate);
+        Bundle args = getArguments();
+        if (args != null) {
+            competitionId = args.getInt("competitionId", -1);
+        } else {
+            competitionId = -1; // fallback
+        }
+
+        String url = String.format(Locale.US,
+                "https://api.football-data.org/v4/competitions/%d/matches/?dateFrom=%s&dateTo=%s",
+                competitionId, currentSelectedDate, currentSelectedDate);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 
         recyclerView.setLayoutManager(linearLayoutManager);
         Api api = new Api(getActivity(), getContext());
-        api.loadMatches(url, recyclerView, progressBar, textEmpty);
+        api.loadLeagueMatches(url, recyclerView, progressBar, textEmpty);
 
         // Listen to date change
         dateAdapter.setOnDateSelectedListener(date -> {
-            currentSelecteddate = formatter.format(date);
-            String newUrl = String.format("https://api.football-data.org/v4/competitions/%s/matches/?dateFrom=%s&dateTo=%s", competitionId, currentSelecteddate, currentSelecteddate);
-            api.loadMatches(newUrl, recyclerView, progressBar, textEmpty);
+            currentSelectedDate = formatter.format(date);
+            String newUrl = String.format(Locale.US,
+                    "https://api.football-data.org/v4/competitions/%d/matches/?dateFrom=%s&dateTo=%s",
+                    competitionId, currentSelectedDate, currentSelectedDate);
+            api.loadLeagueMatches(newUrl, recyclerView, progressBar, textEmpty);
         });
 
     }

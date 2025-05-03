@@ -15,11 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.codesui.footballlatest.R;
 import com.codesui.footballlatest.Utility.Api;
+import com.codesui.footballlatest.activities.FavoritesActivity;
 import com.codesui.footballlatest.activities.LeagueActivity;
 
 public class TeamsFragment extends Fragment {
 
-    ProgressBar progressBar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class TeamsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        progressBar = view.findViewById(R.id.progressBar);
+        ProgressBar progressBar = view.findViewById(R.id.progressBar);
         LeagueActivity competitionActivity = (LeagueActivity) getActivity();
         TextView textEmpty = view.findViewById(R.id.textEmpty);
 
@@ -44,8 +44,7 @@ public class TeamsFragment extends Fragment {
             recyclerView.setLayoutManager(linearLayoutManager);
 
             Api api = new Api(getActivity(), getContext());
-            api.loadMatches(url, recyclerView, progressBar, textEmpty);
-        } else {
+            api.loadTeams(url, recyclerView, progressBar, textEmpty);
         }
 
     }

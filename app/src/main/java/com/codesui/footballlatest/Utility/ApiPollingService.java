@@ -35,7 +35,7 @@ public class ApiPollingService extends Service {
         Notification notification = new NotificationCompat.Builder(this, API_CHANNEL_ID)
                 .setContentTitle("Football API Polling")
                 .setContentText("Checking for updates every 10 seconds")
-                .setSmallIcon(R.drawable.ic_football)
+                .setSmallIcon(R.drawable.image5)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .build();
 
@@ -71,7 +71,7 @@ public class ApiPollingService extends Service {
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "user_channel")
-                .setSmallIcon(R.drawable.ic_epl_banner)
+                .setSmallIcon(R.drawable.image5)
                 .setContentTitle("New Match Update")
                 .setContentText(message)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -91,7 +91,6 @@ public class ApiPollingService extends Service {
 
         notificationManager.notify((int) System.currentTimeMillis(), builder.build());
     }
-
 
 
     private void createNotificationChannels() {

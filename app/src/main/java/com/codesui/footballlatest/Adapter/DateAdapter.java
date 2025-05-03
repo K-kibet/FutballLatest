@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class DateAdapter extends RecyclerView.Adapter<DateAdapter.DateViewHolder> {
-    private ArrayList<DateModel> dates;
+    private final ArrayList<DateModel> dates;
     private int selectedPosition;
 
     public DateAdapter(ArrayList<DateModel> dates, int defaultSelectedPosition) {

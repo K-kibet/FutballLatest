@@ -8,15 +8,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.codesui.footballlatest.R;
 import com.codesui.footballlatest.activities.LeagueActivity;
 import com.codesui.footballlatest.ads.InterstitialManager;
+import com.codesui.footballlatest.data.FixtureItem;
 import com.codesui.footballlatest.data.League;
+import com.codesui.footballlatest.data.Match;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class LeaguesAdapter extends RecyclerView.Adapter<LeaguesAdapter.ViewHolder> {
     private final Context context;
@@ -40,7 +47,7 @@ public class LeaguesAdapter extends RecyclerView.Adapter<LeaguesAdapter.ViewHold
         final League league = this.competitionList.get(position);
         holder.leagueName.setText(league.getLeagueName());
         holder.leagueArena.setText(league.getLeagueArena());
-        Picasso.get().load(league.getLeagueImage()).placeholder(R.drawable.ic_epl_banner).error(R.drawable.ic_epl_banner).into(holder.competitionImage);
+        Picasso.get().load(league.getLeagueImage()).placeholder(R.drawable.image5).error(R.drawable.image5).into(holder.competitionImage);
         holder.itemView.setOnClickListener(view -> {
             Intent leagueIntent = new Intent(LeaguesAdapter.this.context, LeagueActivity.class);
             leagueIntent.putExtra("competitionName", league.getLeagueArena());
@@ -55,6 +62,7 @@ public class LeaguesAdapter extends RecyclerView.Adapter<LeaguesAdapter.ViewHold
     public int getItemCount() {
         return this.competitionList.size();
     }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView leagueName;
         private final TextView leagueArena;
@@ -67,4 +75,5 @@ public class LeaguesAdapter extends RecyclerView.Adapter<LeaguesAdapter.ViewHold
             this.competitionImage = itemView.findViewById(R.id.competitionImage);
         }
     }
+
 }

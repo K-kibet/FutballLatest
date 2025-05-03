@@ -47,7 +47,10 @@ public class AppOpenManager {
     }
 
     private long loadTime = 0;
-    /** Utility method to check if ad was loaded more than n hours ago. */
+
+    /**
+     * Utility method to check if ad was loaded more than n hours ago.
+     */
     private boolean wasLoadTimeLessThanNHoursAgo(long numHours) {
         long dateDifference = (new Date()).getTime() - this.loadTime;
         long numMilliSecondsPerHour = 3600000;
@@ -55,12 +58,14 @@ public class AppOpenManager {
     }
 
 
-    /** Check if ad exists and can be shown. */
+    /**
+     * Check if ad exists and can be shown.
+     */
     public boolean isAdAvailable() {
         return appOpenAd != null && wasLoadTimeLessThanNHoursAgo(4);
     }
 
-    public void showAdIfAvailable(@NonNull final Activity activity){
+    public void showAdIfAvailable(@NonNull final Activity activity) {
         // If the app open ad is already showing, do not show the ad again.
         if (isShowingAd) {
             return;

@@ -10,9 +10,11 @@ import com.codesui.footballlatest.activities.ConditionsActivity;
 
 public class UrlManager {
     Context context;
+
     public UrlManager(Context myContext) {
         context = myContext;
     }
+
     public void moreApps() {
         try {
             Intent intent = new Intent(Intent.ACTION_VIEW);

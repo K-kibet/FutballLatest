@@ -1,14 +1,14 @@
 package com.codesui.footballlatest.activities;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.codesui.footballlatest.Adapter.StartedAdapter;
 import com.codesui.footballlatest.MainActivity;
@@ -25,6 +25,7 @@ import java.util.List;
 
 public class StartedActivity extends AppCompatActivity {
     AppOpenManager appOpenManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +78,8 @@ public class StartedActivity extends AppCompatActivity {
 
     private void showExitBottomSheet() {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
-        View sheetView = getLayoutInflater().inflate(R.layout.exit_bottom_sheet, null);
+        View sheetView = getLayoutInflater().inflate(R.layout.exit_bottom_sheet, null, false);
+
         bottomSheetDialog.setContentView(sheetView);
 
         Button btnYes = sheetView.findViewById(R.id.btnExitYes);

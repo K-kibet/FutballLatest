@@ -8,160 +8,172 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.codesui.footballlatest.R;
+import com.codesui.footballlatest.Utility.DateUtils;
+import com.codesui.footballlatest.activities.LeagueActivity;
 import com.codesui.footballlatest.activities.MatchActivity;
 import com.codesui.footballlatest.ads.InterstitialManager;
+import com.codesui.footballlatest.data.FixtureItem;
 import com.codesui.footballlatest.data.Match;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
+import java.util.Set;
 
-public class FixturesAdapter extends RecyclerView.Adapter<FixturesAdapter.ViewHolder> {
+public class FixturesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
     private final Context context;
     private final Activity activity;
-    private final List<Match> matchList;
-    InterstitialManager interstitialManager = new InterstitialManager();
-    public FixturesAdapter(Context context, Activity activity, List<Match> list) {
+    private final List<FixtureItem> fixtureItems;
+    private final InterstitialManager interstitialManager = new InterstitialManager();
+
+    public FixturesAdapter(Context context, Activity activity, List<FixtureItem> fixtureItems) {
         this.context = context;
         this.activity = activity;
-        this.matchList = list;
+        this.fixtureItems = fixtureItems;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return fixtureItems.get(position).getType();
     }
 
     @NonNull
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_fixture, parent, false);
-        return new ViewHolder(view);
-    }
-
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        final Match match = this.matchList.get(position);
-
-
-        holder.textHome.setText(match.getHomeTeam());
-        holder.textAway.setText(match.getAwayTeam());
-        Picasso.get().load(match.getHomeImage()).placeholder(R.drawable.ic_football).error(R.drawable.ic_football).into(holder.homeImage);
-        Picasso.get().load(match.getAwayImage()).placeholder(R.drawable.ic_football).error(R.drawable.ic_football).into(holder.awayImage);
-        //Picasso.get().load(match.getCupImage()).placeholder(R.drawable.ic_football).error(R.drawable.ic_football).into(holder.imageCup);
-        holder.textHomeResult.setText(match.getHomeScore());
-        holder.textAwayResult.setText(match.getAwayScore());
-
-        //holder.date.setText(formatDateWithSuffix(match.getDate()));
-        String dateTime = match.getDate();
-        String time = dateTime.split("T")[1].replace(":00Z", ""); // Remove seconds and 'Z'
-
-        holder.time.setText(time);
-        //String date = convertDate(match.getDate());
-        if(match.getStatus().equals("LIVE") || match.getStatus().equals("FINISHED") || match.getStatus().equals("IN_PLAY") || match.getStatus().equals("PAUSED")){
-            if(match.getStatus().equals("FINISHED")){
-                holder.duration.setText("FT");
-            } else {
-                //holder.duration.setText(time);
-                holder.duration.setText("🔥");
-            }
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == FixtureItem.TYPE_HEADER) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_league_header, parent, false);
+            return new HeaderViewHolder(view);
         } else {
-            if(match.getStatus().equals("SCHEDULED") || match.getStatus().equals("TIMED")|| match.getStatus().equals("POSTPONED")){
-                //holder.duration.setText(time);
-                holder.duration.setText("\uD83D\uDD52");
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_fixture, parent, false);
+            return new MatchViewHolder(view);
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        FixtureItem item = fixtureItems.get(position);
+
+        if (holder instanceof HeaderViewHolder) {
+            HeaderViewHolder header = (HeaderViewHolder) holder;
+            header.leagueName.setText(item.getLeagueName());
+            Picasso.get().load(item.getLeagueLogo()).placeholder(R.drawable.image5).error(R.drawable.image5).into(header.leagueLogo);
+
+            holder.itemView.setOnClickListener(view -> {
+                Intent leagueIntent = new Intent(FixturesAdapter.this.context, LeagueActivity.class);
+                leagueIntent.putExtra("competitionName", item.getLeagueName());
+                leagueIntent.putExtra("competitionId", item.getLeagueId());
+                leagueIntent.putExtra("competitionCode", item.getLeagueCode());
+                FixturesAdapter.this.context.startActivity(leagueIntent);
+                interstitialManager.showInterstitial(FixturesAdapter.this.activity);
+            });
+        } else if (holder instanceof MatchViewHolder) {
+            final Match match = item.getMatch();
+            MatchViewHolder matchHolder = (MatchViewHolder) holder;
+
+            matchHolder.textHome.setText(match.getHomeTeam());
+            matchHolder.textAway.setText(match.getAwayTeam());
+            Picasso.get().load(match.getHomeImage()).placeholder(R.drawable.image5).error(R.drawable.image5).into(matchHolder.homeImage);
+            Picasso.get().load(match.getAwayImage()).placeholder(R.drawable.image5).error(R.drawable.image5).into(matchHolder.awayImage);
+            matchHolder.textHomeResult.setText(match.getHomeScore());
+            matchHolder.textAwayResult.setText(match.getAwayScore());
+            matchHolder.time.setText(DateUtils.convertUtcToLocalTime(match.getDate()));
+
+            String status = match.getStatus();
+            if (status.equals("LIVE") || status.equals("FINISHED") || status.equals("IN_PLAY") || status.equals("PAUSED")) {
+                matchHolder.duration.setText(status.equals("FINISHED") ? context.getString(R.string.ft) : "🔥");
             } else {
-                holder.duration.setText(match.getStatus());
+                matchHolder.duration.setText(
+                        status.equals("SCHEDULED") || status.equals("TIMED") || status.equals("POSTPONED") ? "🕒" : status
+                );
             }
-        }
 
-        holder.itemView.setOnClickListener(view -> {
-            Intent fixturesIntent = new Intent(FixturesAdapter.this.context, MatchActivity.class);
-            fixturesIntent.putExtra("id", match.getId());
-            FixturesAdapter.this.context.startActivity(fixturesIntent);
-            interstitialManager.showInterstitial(FixturesAdapter.this.activity);
-        });
-
-    }
-
-    public String getOrdinalSuffix(int day) {
-        if (day >= 11 && day <= 13) {
-            return "th"; // Special case for 11th, 12th, 13th
-        }
-        switch (day % 10) {
-            case 1: return "st";
-            case 2: return "nd";
-            case 3: return "rd";
-            default: return "th";
+            matchHolder.itemView.setOnClickListener(view -> {
+                Intent fixturesIntent = new Intent(context, MatchActivity.class);
+                fixturesIntent.putExtra("id", match.getId());
+                fixturesIntent.putExtra("status", match.getStatus());
+                context.startActivity(fixturesIntent);
+                interstitialManager.showInterstitial(activity);
+            });
         }
     }
 
-
-    private String convertDate(String utcDateString) {
-        try {
-            // Define the UTC date format (input string format)
-            SimpleDateFormat utcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-            utcFormat.setTimeZone(TimeZone.getTimeZone("UTC")); // Ensure the date is parsed in UTC time zone
-
-            // Parse the UTC date string into a Date object
-            Date utcDate = utcFormat.parse(utcDateString);
-
-            // Define the output format (including both date and time)
-            SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm");
-            outputFormat.setTimeZone(TimeZone.getDefault()); // Use the device's local time zone for display
-
-            // Format the Date into the required format (date and time)
-            String formattedDateTime = outputFormat.format(utcDate);
-            return formattedDateTime;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return utcDateString;  // In case of an error, return the original string (or handle accordingly)
-        }
+    public void updateData(List<FixtureItem> newItems) {
+        fixtureItems.clear();
+        fixtureItems.addAll(newItems);
+        notifyDataSetChanged();
     }
 
 
-    public String formatDateWithSuffix(String dateTime) {
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
-        SimpleDateFormat outputFormat = new SimpleDateFormat("MMMM d", Locale.getDefault()); // e.g., "October 19"
-
-        try {
-            Date date = inputFormat.parse(dateTime);
-            if (date != null) {
-                String formattedDate = outputFormat.format(date);
-                int day = Integer.parseInt(new SimpleDateFormat("d", Locale.getDefault()).format(date)); // Get the day
-                String suffix = getOrdinalSuffix(day); // Get the suffix
-                return formattedDate + suffix; // Concatenate the formatted date with the day and suffix
-            }
-        } catch (Exception e) {
-            e.printStackTrace(); // Handle the exception
-        }
-        return ""; // Return empty string if parsing fails
-    }
-
+    @Override
     public int getItemCount() {
-        return this.matchList.size();
+        return fixtureItems.size();
     }
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView textHome;
-        private final TextView textAway;
-        private final ImageView homeImage;
-        private final ImageView awayImage;
-        //private final ImageView imageCup;
-        private final TextView textHomeResult;
-        private final TextView textAwayResult;
-        private final TextView duration;
-        private final TextView time;
 
-        public ViewHolder(@NonNull View itemView) {
+    public static class MatchViewHolder extends RecyclerView.ViewHolder {
+        TextView textHome, textAway, textHomeResult, textAwayResult, duration, time;
+        ImageView homeImage, awayImage;
+
+        public MatchViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.textHome = itemView.findViewById(R.id.textHome);
-            this.textAway = itemView.findViewById(R.id.textAway);
-            this.textHomeResult = itemView.findViewById(R.id.textHomeResult);
-            this.textAwayResult = itemView.findViewById(R.id.textAwayResult);
-            this.homeImage = itemView.findViewById(R.id.homeImage);
-            this.awayImage = itemView.findViewById(R.id.awayImage);
-            //this.imageCup = itemView.findViewById(R.id.imageCup);
-            this.duration = itemView.findViewById(R.id.duration);
-            this.time = itemView.findViewById(R.id.time);
+            textHome = itemView.findViewById(R.id.textHome);
+            textAway = itemView.findViewById(R.id.textAway);
+            textHomeResult = itemView.findViewById(R.id.textHomeResult);
+            textAwayResult = itemView.findViewById(R.id.textAwayResult);
+            homeImage = itemView.findViewById(R.id.homeImage);
+            awayImage = itemView.findViewById(R.id.awayImage);
+            duration = itemView.findViewById(R.id.duration);
+            time = itemView.findViewById(R.id.time);
         }
+    }
+
+    public static class HeaderViewHolder extends RecyclerView.ViewHolder {
+        TextView leagueName;
+        ImageView leagueLogo;
+
+        public HeaderViewHolder(@NonNull View itemView) {
+            super(itemView);
+            leagueName = itemView.findViewById(R.id.leagueName);
+            leagueLogo = itemView.findViewById(R.id.leagueLogo);
+        }
+    }
+
+    public static List<FixtureItem> groupMatchesByLeague(List<Match> matches) {
+        List<FixtureItem> result = new ArrayList<>();
+        Set<Integer> seenLeagues = new HashSet<>();
+
+        for (Match match : matches) {
+            if (!seenLeagues.contains(match.getLeagueId())) {
+                // Add header with league info (match is null here)
+                result.add(new FixtureItem(
+                        FixtureItem.TYPE_HEADER,
+                        match.getLeagueId(),
+                        match.getLeagueCode(),
+                        null,
+                        match.getLeagueName(),
+                        match.getLeagueLogo()
+                ));
+                seenLeagues.add(match.getLeagueId());
+            }
+
+            // Add the actual match item
+            result.add(new FixtureItem(
+                    FixtureItem.TYPE_MATCH,
+                    match.getLeagueId(),
+                    match.getLeagueCode(),
+                    match,
+                    null,
+                    null
+            ));
+        }
+
+        return result;
     }
 
 }

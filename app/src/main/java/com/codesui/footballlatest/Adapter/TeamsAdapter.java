@@ -18,6 +18,7 @@ import java.util.List;
 
 public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> {
     private final List<Team> teamList;
+
     public TeamsAdapter(List<Team> list) {
         this.teamList = list;
     }
@@ -30,7 +31,7 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> 
 
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Team team = this.teamList.get(position);
-        Picasso.get().load(team.getImage()).placeholder(R.drawable.ic_football).error(R.drawable.ic_football).into(holder.imageTeam);
+        Picasso.get().load(team.getImage()).placeholder(R.drawable.image5).error(R.drawable.image5).into(holder.imageTeam);
         holder.textTeam.setText(team.getName());
         if (team.isFavorite()) {
             holder.buttonFavorite.setImageResource(R.drawable.baseline_star_24); // Filled star
@@ -57,6 +58,7 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> 
         private final ImageView imageTeam;
         private final TextView textTeam;
         private final ImageView buttonFavorite;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.imageTeam = itemView.findViewById(R.id.imageTeam);

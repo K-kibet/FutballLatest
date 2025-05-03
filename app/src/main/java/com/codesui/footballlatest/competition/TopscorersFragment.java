@@ -19,6 +19,7 @@ import com.codesui.footballlatest.activities.LeagueActivity;
 
 public class TopscorersFragment extends Fragment {
     ProgressBar progressBar;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class TopscorersFragment extends Fragment {
 
         LeagueActivity competitionActivity = (LeagueActivity) getActivity();
         assert competitionActivity != null;
-        String competitionId = competitionActivity.competitionId;
+        int competitionId = competitionActivity.competitionId;
         progressBar = view.findViewById(R.id.progressBar);
         TextView textEmpty = view.findViewById(R.id.textEmpty);
 

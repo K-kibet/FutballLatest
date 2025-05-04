@@ -3,10 +3,10 @@ package com.codesui.footballlatest.data;
 public class Match {
 
     private final String id;
-    private int leagueId;
-    private String leagueCode;
-    private String leagueName;
-    private String leagueLogo;
+    private final int leagueId;
+    private final String leagueCode;
+    private final String leagueName;
+    private final String leagueLogo;
     private final String homeTeam;
     private final String awayTeam;
     private final String homeImage;
@@ -15,8 +15,9 @@ public class Match {
     private String awayScore;
     private final String date;
     private final String status;
+    private final String minute;
 
-    public Match(String id, int leagueId, String leagueCode, String leagueName, String leagueLogo, String homeTeam, String awayTeam, String homeImage, String awayImage, String homeScore, String awayScore, String date, String status) {
+    public Match(String id, int leagueId, String leagueCode, String leagueName, String leagueLogo, String homeTeam, String awayTeam, String homeImage, String awayImage, String homeScore, String awayScore, String date, String status, String minute) {
         this.id = id;
         this.leagueId = leagueId;
         this.leagueCode = leagueCode;
@@ -30,6 +31,7 @@ public class Match {
         this.awayScore = awayScore;
         this.date = date;
         this.status = status;
+        this.minute = minute;
     }
 
 
@@ -92,4 +94,11 @@ public class Match {
     public String getStatus() {
         return status;
     }
+
+    public String getMinute() {return minute;}
+
+    public boolean hasMinute() {
+        return minute != null && !minute.isEmpty();
+    }
+
 }

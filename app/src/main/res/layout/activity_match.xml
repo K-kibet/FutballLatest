@@ -23,7 +23,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/info"
@@ -221,7 +221,7 @@
                             android:layout_weight="1.8"
                             android:background="@drawable/rounded_background"
                             android:scaleType="centerInside"
-                            android:src="@drawable/baseline_live_tv_24" />
+                            android:src="@drawable/baseline_play_circle_outline_24" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>

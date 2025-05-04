@@ -87,6 +87,28 @@ public class MatchActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        ImageView dynamicImage = new ImageView(this);
+        dynamicImage.setImageResource(R.drawable.baseline_play_circle_outline_24); // your image
+        dynamicImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+
+// Set layout params to align it to the right
+        Toolbar.LayoutParams params = new Toolbar.LayoutParams(
+                Toolbar.LayoutParams.WRAP_CONTENT,
+                Toolbar.LayoutParams.WRAP_CONTENT,
+                Gravity.END | Gravity.CENTER_VERTICAL
+        );
+
+        dynamicImage.setLayoutParams(params);
+
+// Optional: Add click listener
+        /*dynamicImage.setOnClickListener(v -> {
+            Toast.makeText(this, "Image clicked", Toast.LENGTH_SHORT).show();
+        });*/
+
+// Add it to the toolbar
+        toolbar.addView(dynamicImage);
+
+
         progressBar = findViewById(R.id.progressBar);
         main = findViewById(R.id.main);
         emptyView = findViewById(R.id.emptyView);

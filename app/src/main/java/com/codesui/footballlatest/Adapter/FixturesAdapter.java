@@ -87,11 +87,28 @@ public class FixturesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             String status = match.getStatus();
             if (status.equals("LIVE") || status.equals("FINISHED") || status.equals("IN_PLAY") || status.equals("PAUSED")) {
-                matchHolder.duration.setText(status.equals("FINISHED") ? context.getString(R.string.ft) : "🔥");
+                //matchHolder.duration.setText(status.equals("FINISHED") ? context.getString(R.string.ft) : "🔥");
+
+                if (status.equals("FINISHED")) {
+                    matchHolder.duration.setText(R.string.ft);
+                } else {
+                    if (match.hasMinute()) {
+                        // Safe to use the string
+                        matchHolder.duration.setText(match.getMinute());
+                    } else {
+                        matchHolder.duration.setText("TBD");
+                    }
+                }
             } else {
-                matchHolder.duration.setText(
+                /*matchHolder.duration.setText(
                         status.equals("SCHEDULED") || status.equals("TIMED") || status.equals("POSTPONED") ? "🕒" : status
-                );
+                );*/
+
+                if (status.equals("SCHEDULED") || status.equals("TIMED") || status.equals("POSTPONED")) {
+                    matchHolder.duration.setVisibility(View.GONE);
+                } else {
+                    matchHolder.duration.setText(status);
+                }
             }
 
             matchHolder.itemView.setOnClickListener(view -> {

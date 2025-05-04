@@ -22,7 +22,6 @@ import com.codesui.footballlatest.Adapter.PlayersAdapter;
 import com.codesui.footballlatest.Adapter.StandingsAdapter;
 import com.codesui.footballlatest.Adapter.TeamsAdapter;
 import com.codesui.footballlatest.R;
-import com.codesui.footballlatest.activities.LeagueActivity;
 import com.codesui.footballlatest.data.FilterLeague;
 import com.codesui.footballlatest.data.FixtureItem;
 import com.codesui.footballlatest.data.League;
@@ -317,10 +316,10 @@ public class Api {
                                     jsonObject.getJSONObject("awayTeam").getString("crest"),
                                     jsonObject.getJSONObject("score").getJSONObject("fullTime").getString("home"),
                                     jsonObject.getJSONObject("score").getJSONObject("fullTime").getString("away"),
-                                    jsonObject.getString("utcDate"), jsonObject.getString("status"));
+                                    jsonObject.getString("utcDate"), jsonObject.getString("status"), jsonObject.optString("minute", null));
                             if (jsonObject.getJSONObject("score").getJSONObject("fullTime").getString("home").equals("null")) {
-                                match.setHomeScore("?");
-                                match.setAwayScore("?");
+                                match.setHomeScore("");
+                                match.setAwayScore("");
                             }
 
                             matchList.add(match);
@@ -439,7 +438,7 @@ public class Api {
                                     jsonObject.getJSONObject("awayTeam").getString("crest"),
                                     jsonObject.getJSONObject("score").getJSONObject("fullTime").getString("home"),
                                     jsonObject.getJSONObject("score").getJSONObject("fullTime").getString("away"),
-                                    jsonObject.getString("utcDate"), jsonObject.getString("status"));
+                                    jsonObject.getString("utcDate"), jsonObject.getString("status"), jsonObject.optString("minute", null));
                             if (jsonObject.getJSONObject("score").getJSONObject("fullTime").getString("home").equals("null")) {
                                 match.setHomeScore("?");
                                 match.setAwayScore("?");

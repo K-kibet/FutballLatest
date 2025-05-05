@@ -20,7 +20,7 @@ public class ApiPollingService extends Service {
     private static final String API_CHANNEL_ID = "api_channel";
     private static final String USER_CHANNEL_ID = "user_channel";
 
-    private Handler handler = new Handler();
+    private final Handler handler = new Handler();
     private Runnable task;
 
     @Override
@@ -80,40 +80,36 @@ public class ApiPollingService extends Service {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
 
         // Ensure the channel exists for API 26+
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(
-                    "user_channel",
-                    "User Alerts",
-                    NotificationManager.IMPORTANCE_HIGH
-            );
-            notificationManager.createNotificationChannel(channel);
-        }
+        NotificationChannel channel = new NotificationChannel(
+                "user_channel",
+                "User Alerts",
+                NotificationManager.IMPORTANCE_HIGH
+        );
+        notificationManager.createNotificationChannel(channel);
 
         notificationManager.notify((int) System.currentTimeMillis(), builder.build());
     }
 
 
     private void createNotificationChannels() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel apiChannel = new NotificationChannel(
-                    API_CHANNEL_ID,
-                    "API Polling",
-                    NotificationManager.IMPORTANCE_LOW
-            );
-            apiChannel.setDescription("Service notification for continuous background polling");
+        NotificationChannel apiChannel = new NotificationChannel(
+                API_CHANNEL_ID,
+                "API Polling",
+                NotificationManager.IMPORTANCE_LOW
+        );
+        apiChannel.setDescription("Service notification for continuous background polling");
 
-            NotificationChannel userChannel = new NotificationChannel(
-                    USER_CHANNEL_ID,
-                    "User Alerts",
-                    NotificationManager.IMPORTANCE_HIGH
-            );
-            userChannel.setDescription("Notifies users of new API data");
+        NotificationChannel userChannel = new NotificationChannel(
+                USER_CHANNEL_ID,
+                "User Alerts",
+                NotificationManager.IMPORTANCE_HIGH
+        );
+        userChannel.setDescription("Notifies users of new API data");
 
-            NotificationManager manager = getSystemService(NotificationManager.class);
-            if (manager != null) {
-                manager.createNotificationChannel(apiChannel);
-                manager.createNotificationChannel(userChannel);
-            }
+        NotificationManager manager = getSystemService(NotificationManager.class);
+        if (manager != null) {
+            manager.createNotificationChannel(apiChannel);
+            manager.createNotificationChannel(userChannel);
         }
     }
 

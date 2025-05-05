@@ -7,7 +7,7 @@ android {
     compileSdk 34
 
     defaultConfig {
-        applicationId 'com.matchlivescores'
+        applicationId 'com.football.livehd'
         minSdk 26
         targetSdk 34
         versionCode 1
